@@ -29,7 +29,7 @@ export default function Home() {
         </li>
         <li className="flex flex-col gap-3">
           <div className="font-serif font-semibold">Being at the Place</div>
-          <button className="bg-slate-500 p-2">찾으러 가기</button>
+          <button className="p-3 bg-[#FF6347] rounded-sm">찾으러 가기</button>
         </li>
       </ul>
     </>

@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import Link from "next/link";
 import Menu from "./_components/NavMenu";
 
 export const metadata: Metadata = {
@@ -18,7 +19,7 @@ export default function RootLayout({
       <body className="h-dvh relative bg-custom-gradient flex items-center flex-col antialiased">
         <header className="w-full mt-6 px-10 relative z-10 flex justify-center items-center">
           <h1 className="text-black font-serif text-xl leading-5 underline self-center">
-            AT THE PLACE
+            <Link href="/">AT THE PLACE</Link>
           </h1>
           <Menu />
         </header>
