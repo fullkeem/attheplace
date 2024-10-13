@@ -1,17 +1,6 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+import type { Metadata } from "next";
+import Menu from "./_components/NavMenu";
 
 export const metadata: Metadata = {
   title: "At The Place",
@@ -26,10 +15,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className="h-dvh relative bg-custom-gradient flex items-center flex-col antialiased">
+        <header className="w-full mt-6 px-10 relative z-10 flex justify-center items-center">
+          <h1 className="text-black font-serif text-xl leading-5 underline self-center">
+            AT THE PLACE
+          </h1>
+          <Menu />
+        </header>
+        <main className="mt-10 mx-auto">
+          <article className="flex flex-col bg-[url('/images/sectionBox.png')] bg-no-repeat bg-[length:100%_100%] w-[310px] h-[630px]">
+            {children}
+          </article>
+        </main>
       </body>
     </html>
   );
