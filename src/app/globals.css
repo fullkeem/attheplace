@@ -35,3 +35,7 @@ body {
     text-wrap: balance;
   }
 }
+
+.inputCommon {
+  @apply border-b bg-transparent border-gray-600 focus:border-gray-300 focus:outline-none py-2 text-sm;
+}
