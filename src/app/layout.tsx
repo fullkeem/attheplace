@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Menu from "./_components/NavMenu";
+import RandomBackground from "./_components/RandomBackground";
 
 export const metadata: Metadata = {
   title: "At The Place",
@@ -16,18 +17,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="h-dvh relative bg-custom-gradient flex items-center flex-col antialiased">
-        <header className="w-full mt-6 px-10 relative z-10 flex justify-center items-center">
-          <h1 className="text-black font-serif text-xl leading-5 underline self-center">
-            <Link href="/">AT THE PLACE</Link>
-          </h1>
-          <Menu />
-        </header>
-        <main className="mt-10 mx-auto">
-          <article className="flex flex-col bg-[url('/images/sectionBox.png')] bg-no-repeat bg-[length:100%_100%] w-[310px] h-[630px]">
-            {children}
-          </article>
-        </main>
+      <body className="h-dvh relative flex items-center flex-col antialiased">
+        <RandomBackground>
+          <header className="w-full py-5 px-10 relative z-10 bg-[url('/images/blackBg.webp')] bg-no-repeat bg-cover bg-center flexCenter">
+            <h1 className="text-slate-200 font-serif text-xl leading-5 underline underline-offset-2 self-center">
+              <Link href="/">AT THE PLACE</Link>
+            </h1>
+            <Menu />
+          </header>
+          <main className="mt-10 mx-auto">
+            <article className="flex flex-col bg-[url('/images/sectionBox.png')] bg-no-repeat bg-[length:100%_100%] w-[310px] h-[630px]">
+              {children}
+            </article>
+          </main>
+        </RandomBackground>
       </body>
     </html>
   );

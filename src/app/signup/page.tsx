@@ -9,6 +9,7 @@ interface SignupFormData {
   password: string;
   confirmPassword: string;
   nickName: string;
+  profileImage: string;
 }
 
 export default function Signup() {
@@ -17,6 +18,7 @@ export default function Signup() {
     password: "",
     confirmPassword: "",
     nickName: "",
+    profileImage: "",
   });
 
   const [errors, setErrors] = useState({
@@ -82,6 +84,7 @@ export default function Signup() {
       email: formData.email,
       pwd: formData.password,
       nickName: formData.nickName,
+      profileImage: formData.profileImage,
     });
   };
 
@@ -98,7 +101,7 @@ export default function Signup() {
         data.message.includes(key)
       );
 
-      if (status === 409 && matchedError) {
+      if (status === 400 && matchedError) {
         setErrors((prev) => ({
           ...prev,
           [matchedError]: errorMessages[matchedError],
@@ -137,6 +140,7 @@ export default function Signup() {
       const response = await sendSignupRequest(formData);
       console.log("회원가입 성공:", response.data);
       alert("회원가입이 완료되었습니다.");
+      window.location.href = "/";
     } catch (error: any) {
       handleError(error);
     }
@@ -209,7 +213,7 @@ export default function Signup() {
           </label>
           <input
             type="text"
-            id="nickname"
+            id="nickName"
             value={formData.nickName}
             className="inputCommon"
             placeholder="닉네임을 입력하세요"

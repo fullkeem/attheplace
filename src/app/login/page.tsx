@@ -76,7 +76,7 @@ export default function Login() {
           />
         </div>
 
-        <div className="mb-10">
+        <div className="mb-6">
           <label htmlFor="password" className="block text-sm text-white mb-1">
             비밀번호 입력
           </label>
