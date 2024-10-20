@@ -15,7 +15,6 @@ interface UserInfo {
 export default function Menu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
-  const [error, setError] = useState<string>("");
 
   // 메뉴 상태 토글
   const toggleMenu = () => {
@@ -36,33 +35,34 @@ export default function Menu() {
       try {
         // localStorage에서 저장된 토큰을 가져오기
         const token = JSON.parse(localStorage.getItem("token") || "null");
-
-        console.log(token.accessToken);
-
         // 토큰이 없으면 함수 실행 중지
         if (!token || !token.accessToken) {
           console.log("no token");
           return;
         }
+        console.log(token.accessToken);
 
         // 서버로 사용자 정보 요청
-        const response = await axios.get("http://localhost:10010/users/me", {
-          headers: {
-            Authorization: `Bearer ${token.accessToken}`,
-          },
-        });
+        const response = await axios.get(
+          `http://localhost:10010/mypages/${token.user_pk}`,
+          {
+            headers: {
+              Authorization: token.accessToken,
+            },
+          }
+        );
 
         // 받아온 사용자 정보 저장
         setUserInfo(response.data);
+
         console.log("유저 정보:", userInfo);
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error("사용자 정보 불러오기 실패:", error);
-        setError("사용자 정보를 불러오는 데 실패했습니다.");
       }
     };
 
     fetchUserInfo();
-  }, []);
+  }, [userInfo]);
 
   return (
     <>

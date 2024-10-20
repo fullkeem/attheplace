@@ -1,14 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
-export default function RandomBackground({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const [backgroundImage, setBackgroundImage] = useState<string>("");
+export default function RandomBackground() {
+  const [backgroundImage, setBackgroundImage] = useState("");
   const pathname = usePathname();
 
   const images = [
@@ -28,34 +25,30 @@ export default function RandomBackground({
     return images[randomIndex];
   };
 
-  // useEffect(() => {
-  //   const img = new Image();
-  //   img.src = backgroundImage;
-
-  //   img.onload = () => {
-  //     setBackgroundImage(img.src);
-  //   };
-  // }, [backgroundImage]);
-
-  useEffect(() => {
-    const link = document.createElement("link");
-    link.rel = "preload";
-    link.href = backgroundImage;
-    link.as = "image";
-    document.head.appendChild(link);
-  }, [backgroundImage]);
-
   useEffect(() => {
     const randomImage = getRandomImage();
     setBackgroundImage(randomImage);
   }, [pathname]);
 
+  useEffect(() => {
+    const img = new window.Image();
+    const randomImage = getRandomImage();
+    img.src = randomImage;
+
+    img.onload = () => {
+      setBackgroundImage(randomImage);
+    };
+  }, [pathname]);
+
   return (
-    <div
-      className="w-full h-dvh bg-no-repeat bg-cover  flex flex-col"
-      style={{ backgroundImage: `url(${backgroundImage})` }}
-    >
-      {children}
-    </div>
+    <picture className="absolute z-[-1] flex w-dvw h-dvh">
+      <Image
+        src={backgroundImage}
+        className="bg-no-repeat bg-cover bg-center"
+        alt=""
+        fill
+        aria-hidden
+      />
+    </picture>
   );
 }

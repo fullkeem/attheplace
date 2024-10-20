@@ -17,20 +17,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="h-dvh relative flex items-center flex-col antialiased">
-        <RandomBackground>
-          <header className="w-full py-5 px-10 relative z-10 bg-[url('/images/blackBg.webp')] bg-no-repeat bg-cover bg-center flexCenter">
-            <h1 className="text-slate-200 font-serif text-xl leading-5 underline underline-offset-2 self-center">
-              <Link href="/">AT THE PLACE</Link>
-            </h1>
-            <Menu />
-          </header>
-          <main className="mt-10 mx-auto">
-            <article className="flex flex-col bg-[url('/images/sectionBox.png')] bg-no-repeat bg-[length:100%_100%] w-[310px] h-[630px]">
-              {children}
-            </article>
-          </main>
-        </RandomBackground>
+      <body className="h-dvh relative flex flex-col">
+        <RandomBackground />
+        <header className="w-full py-5 px-10 relative z-10 bg-[url('/images/blackBg.webp')] bg-no-repeat bg-cover bg-center flexCenter">
+          <h1 className="text-slate-200 font-serif text-xl leading-5 underline underline-offset-2 self-center">
+            <Link href="/">AT THE PLACE</Link>
+          </h1>
+          <Menu />
+        </header>
+        <main className="mt-5 mx-auto">
+          <article className="flex flex-col w-[310px] h-[630px]">
+            {children}
+          </article>
+        </main>
       </body>
     </html>
   );

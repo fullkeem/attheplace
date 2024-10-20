@@ -55,7 +55,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center p-10">
+    <div className="flex flex-col justify-center items-centerm mt-10 p-10 bg-[#353434]/75 rounded-xl">
       <div className="text-center mb-8">
         <h2 className="text-lg font-semibold text-white">로그인</h2>
       </div>
@@ -104,7 +104,10 @@ export default function Login() {
         </div>
 
         <div className="text-center">
-          <a href="/signup" className="text-sm text-gray-200 hover:underline">
+          <a
+            href="/signup"
+            className="text-sm text-gray-200 underline underline-offset-2"
+          >
             회원가입
           </a>
         </div>

@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import axios from "axios";
-import { validateEmail, validatePassword } from "../utils/util";
+import { useState } from 'react';
+import axios from 'axios';
+import { validateEmail, validatePassword } from '../utils/util';
 
 interface SignupFormData {
   email: string;
@@ -14,18 +14,18 @@ interface SignupFormData {
 
 export default function Signup() {
   const [formData, setFormData] = useState<SignupFormData>({
-    email: "",
-    password: "",
-    confirmPassword: "",
-    nickName: "",
-    profileImage: "",
+    email: '',
+    password: '',
+    confirmPassword: '',
+    nickName: '',
+    profileImage: '',
   });
 
   const [errors, setErrors] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-    nickName: "",
+    email: '',
+    password: '',
+    confirmPassword: '',
+    nickName: '',
   });
 
   // 이메일 유효성 검사
@@ -35,7 +35,7 @@ export default function Signup() {
     if (!validateEmail(formData.email)) {
       setErrors((prev) => ({
         ...prev,
-        email: "유효하지 않은 이메일 형식입니다.",
+        email: '유효하지 않은 이메일 형식입니다.',
       }));
       isValid = false;
     }
@@ -49,7 +49,7 @@ export default function Signup() {
     if (!validatePassword(formData.password)) {
       setErrors((prev) => ({
         ...prev,
-        password: "비밀번호는 최소 8자, 숫자 및 특수 문자를 포함해야 합니다.",
+        password: '비밀번호는 최소 8자, 숫자 및 특수 문자를 포함해야 합니다.',
       }));
       isvalid = false;
     }
@@ -62,7 +62,7 @@ export default function Signup() {
     if (formData.password !== formData.confirmPassword) {
       setErrors((prev) => ({
         ...prev,
-        confirmPassword: "비밀번호가 일치하지 않습니다.",
+        confirmPassword: '비밀번호가 일치하지 않습니다.',
       }));
       isValid = false;
     }
@@ -80,7 +80,7 @@ export default function Signup() {
 
   // API 요청 처리
   const sendSignupRequest = async (formData: SignupFormData) => {
-    return await axios.post("http://localhost:10010/users/signup", {
+    return await axios.post('http://localhost:10010/users/signup', {
       email: formData.email,
       pwd: formData.password,
       nickName: formData.nickName,
@@ -90,11 +90,11 @@ export default function Signup() {
 
   // 에러 처리
   const handleError = (error: any) => {
-    if (error.response) {
-      const { status, data } = error.response;
+    if (error?.response) {
+      const { status, data } = error?.response;
       const errorMessages: { [key: string]: string } = {
-        email: "이미 사용 중인 이메일입니다.",
-        nickName: "이미 사용 중인 닉네임입니다.",
+        email: '이미 사용 중인 이메일입니다.',
+        nickName: '이미 사용 중인 닉네임입니다.',
       };
 
       const matchedError = Object.keys(errorMessages).find((key) =>
@@ -107,25 +107,17 @@ export default function Signup() {
           [matchedError]: errorMessages[matchedError],
         }));
       } else {
-        alert("회원가입에 실패했습니다: " + data.message);
+        alert('회원가입에 실패했습니다: ' + data.message);
       }
     } else {
-      console.error("요청 중 오류:", error);
-      alert("요청 중 문제가 발생했습니다.");
+      console.error('요청 중 오류:', error);
+      alert('요청 중 문제가 발생했습니다.');
     }
   };
 
   // 회원가입 제출
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // 초기화
-    setErrors({
-      email: "",
-      password: "",
-      confirmPassword: "",
-      nickName: "",
-    });
 
     // 유효성 검사 통과 여부 확인
     if (
@@ -136,20 +128,31 @@ export default function Signup() {
       return; // 유효성 검사 실패하면 서버 요청 x
     }
 
+    // 초기화
+    setErrors({
+      email: '',
+      password: '',
+      confirmPassword: '',
+      nickName: '',
+    });
+
     try {
       const response = await sendSignupRequest(formData);
-      console.log("회원가입 성공:", response.data);
-      alert("회원가입이 완료되었습니다.");
-      window.location.href = "/";
-    } catch (error: any) {
+      console.log('회원가입 성공:', response.data);
+      alert('회원가입이 완료되었습니다.');
+      window.location.href = '/';
+    } catch (error: unknown) {
       handleError(error);
     }
   };
 
   return (
-    <form className="mt-4 w-full p-8" onSubmit={handleSubmit}>
+    <form
+      className="mt-10 w-full rounded-xl bg-[#353434]/70 p-8"
+      onSubmit={handleSubmit}
+    >
       <fieldset className="flex flex-col gap-6 border-none">
-        <legend className="text-lg font-bold text-white mb-8 text-center">
+        <legend className="mb-8 text-center text-lg font-bold text-white">
           회원가입
         </legend>
 
@@ -226,7 +229,7 @@ export default function Signup() {
 
       <button
         type="submit"
-        className="mt-10 w-full bg-gray-800 text-white py-3 rounded-lg hover:bg-gray-900"
+        className="mt-10 w-full rounded-lg bg-[#FF6347] py-3 text-white"
       >
         가입하기
       </button>
