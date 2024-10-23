@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
 import axios from 'axios';
+import { useState } from 'react';
+import { faker } from '@faker-js/faker';
 import { validateEmail, validatePassword } from '../utils/util';
 
 interface SignupFormData {
@@ -18,7 +19,7 @@ export default function Signup() {
     password: '',
     confirmPassword: '',
     nickName: '',
-    profileImage: '',
+    profileImage: faker.image.avatar(),
   });
 
   const [errors, setErrors] = useState({

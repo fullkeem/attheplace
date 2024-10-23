@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
 export default function RandomBackground() {
-  const [backgroundImage, setBackgroundImage] = useState("");
+  const [backgroundImage, setBackgroundImage] = useState("/images/background/background_1.webp");
   const pathname = usePathname();
 
   const images = [

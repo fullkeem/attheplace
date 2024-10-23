@@ -30,7 +30,7 @@ export default function ProgressBar({
           >
             <div
               className={classNames(
-                'flexCenter relative z-10 h-8 w-8 rounded-full transition-colors duration-300',
+                'flexCenter relative z-[1] h-8 w-8 rounded-full transition-colors duration-300',
                 {
                   'bg-orange-500 text-white': currentStep >= el.id,
                   'bg-slate-400 text-black': currentStep < el.id,

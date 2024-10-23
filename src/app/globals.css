@@ -15,14 +15,14 @@
 } */
 
 @font-face {
-  font-family: "InriaSerif";
-  src: url("/fonts/InriaSerif-Regular.woff") format("truetype");
+  font-family: 'InriaSerif';
+  src: url('/fonts/InriaSerif-Regular.woff') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 .font-custom {
-  font-family: "InriaSerif", sans-serif;
+  font-family: 'InriaSerif', sans-serif;
 }
 
 .bgImage {
@@ -45,13 +45,17 @@ body {
 }
 
 .flexBetween {
-  @apply flex justify-between items-center w-full;
+  @apply flex w-full items-center justify-between;
 }
 
 .inputCommon {
-  @apply border-b bg-transparent border-gray-600 focus:border-gray-300 focus:outline-none py-2 text-sm;
+  @apply border-b border-gray-600 bg-transparent py-2 text-sm focus:border-gray-300 focus:outline-none;
 }
 
 .buttonStyle {
-  @apply text-center font-bold py-4 bg-orange-500 rounded-md;
+  @apply rounded-md bg-orange-500 py-4 text-center font-bold;
+}
+
+.mainStyle {
+  @apply flex flex-col items-center justify-center gap-1 text-center;
 }

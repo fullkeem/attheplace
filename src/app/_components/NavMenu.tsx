@@ -16,53 +16,50 @@ export default function Menu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
 
-  // 메뉴 상태 토글
   const toggleMenu = () => {
     setIsMenuOpen((prevState) => !prevState);
   };
 
+  const fetchUserInfo = async () => {
+    const token = JSON.parse(localStorage.getItem('token') || 'null');
+    if (!token || !token.accessToken) {
+      console.log('no token');
+      return;
+    }
+
+    try {
+      const response = await axios.get(
+        `http://localhost:10010/mypages/${token.user_pk}`,
+        {
+          headers: {
+            Authorization: token.accessToken,
+          },
+        }
+      );
+
+      setUserInfo(response.data);
+      console.log('유저 정보:', response.data);
+      setIsMenuOpen((prevState) => !prevState);
+    } catch (error: unknown) {
+      console.error('사용자 정보 불러오기 실패:', error);
+    }
+  };
+
+  // 로그아웃 함수
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setUserInfo(null);
+    toggleMenu();
+  };
+
   // 메뉴가 열리고 닫히는 설정
   const menuClasses = classNames(
-    "fixed top-0 right-0 w-full h-full z-20 transform transition-transform duration-300 bg-[url('/images/blackBg.webp')] bg-cover bg-center",
+    "fixed top-0 right-0 w-10/12 h-full z-40 transform transition-transform duration-300 bg-[url('/images/blackBg.webp')] bg-cover bg-center",
     {
       'translate-x-0': isMenuOpen,
       'translate-x-full': !isMenuOpen,
     }
   );
-
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        // localStorage에서 저장된 토큰을 가져오기
-        const token = JSON.parse(localStorage.getItem('token') || 'null');
-        // 토큰이 없으면 함수 실행 중지
-        if (!token || !token.accessToken) {
-          console.log('no token');
-          return;
-        }
-        console.log(token.accessToken);
-
-        // 서버로 사용자 정보 요청
-        const response = await axios.get(
-          `http://localhost:10010/mypages/${token.user_pk}`,
-          {
-            headers: {
-              Authorization: token.accessToken,
-            },
-          }
-        );
-
-        // 받아온 사용자 정보 저장
-        setUserInfo(response.data);
-
-        console.log('유저 정보:', response.data);
-      } catch (error: unknown) {
-        console.error('사용자 정보 불러오기 실패:', error);
-      }
-    };
-
-    fetchUserInfo();
-  }, []);
 
   return (
     <>
@@ -77,16 +74,38 @@ export default function Menu() {
         </button>
         <ul className="mt-14 flex flex-col gap-7 p-6">
           <li className="py-1">
-            <Link href="/login" onClick={toggleMenu} className="flexBetween">
-              <div>로그인</div>
-              <Image src={arrow} alt="" aria-hidden />
-            </Link>
+            {userInfo ? (
+              <Link
+                href="/mypage"
+                onClick={fetchUserInfo}
+                className="flexBetween"
+              >
+                <div>마이페이지</div>
+                <Image src={arrow} alt="" aria-hidden />
+              </Link>
+            ) : (
+              <Link href="/login" onClick={toggleMenu} className="flexBetween">
+                <div>로그인</div>
+                <Image src={arrow} alt="" aria-hidden />
+              </Link>
+            )}
           </li>
           <li className="py-1">
-            <Link href="/signup" onClick={toggleMenu} className="flexBetween">
-              <div>회원가입</div>
-              <Image src={arrow} alt="" aria-hidden />
-            </Link>
+            {userInfo ? (
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="flexBetween"
+              >
+                <div>로그아웃</div>
+                <Image src={arrow} alt="" aria-hidden />
+              </button>
+            ) : (
+              <Link href="/signup" onClick={toggleMenu} className="flexBetween">
+                <div>회원가입</div>
+                <Image src={arrow} alt="" aria-hidden />
+              </Link>
+            )}
           </li>
           <li className="py-1">
             <Link
@@ -106,14 +125,6 @@ export default function Menu() {
           </li>
         </ul>
       </nav>
-
-      {/* 메뉴가 열릴 때 어두운 배경 추가 */}
-      {isMenuOpen && (
-        <div
-          className="fixed inset-0 z-10 bg-black opacity-50"
-          onClick={toggleMenu}
-        ></div>
-      )}
     </>
   );
 }
