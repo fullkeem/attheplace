@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 interface LoginForm {
   email: string;
@@ -15,7 +15,6 @@ export default function Login() {
   });
 
   const [errors, setErrors] = useState<string>('');
-  const [token, setToken] = useState(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginData({
@@ -39,20 +38,22 @@ export default function Login() {
       localStorage.setItem('token', JSON.stringify(response.data.token));
 
       window.location.href = '/';
-    } catch (error: any) {
-      if (!error.response) {
-        console.error('요청 중 오류 :', error);
-        setErrors('요청 중 문제가 발생했습니다. 나중에 다시 시도해주세요.');
-        return;
-      }
-      const { status, data } = error.response;
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        if (!error.response) {
+          console.error('요청 중 오류 :', error);
+          setErrors('요청 중 문제가 발생했습니다. 나중에 다시 시도해주세요.');
+          return;
+        }
+        const { status, data } = error.response;
 
-      if (status === 400) {
-        setErrors('아이디 또는 비밀번호가 잘못되었습니다.');
-        return; // 인증 오류 처리 후 종료
+        if (status === 400) {
+          setErrors('아이디 또는 비밀번호가 잘못되었습니다.');
+          return; // 인증 오류 처리 후 종료
+        }
+        // 기타 에러 처리
+        setErrors('로그인에 실패했습니다: ' + data.message);
       }
-      // 기타 에러 처리
-      setErrors('로그인에 실패했습니다: ' + data.message);
     }
   };
 

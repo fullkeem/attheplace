@@ -1,12 +1,17 @@
+import { SignupError } from './errorHandler';
+
 // 이메일 정규식 체크
 const validateEmail = (email: string) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 };
 
-export const validateEmailForm = (email: string, setErrors: any) => {
+export const validateEmailForm = (
+  email: string,
+  setErrors: React.Dispatch<React.SetStateAction<SignupError>>
+) => {
   if (!validateEmail(email)) {
-    setErrors((prev: any) => ({
+    setErrors((prev) => ({
       ...prev,
       email: '유효하지 않은 이메일 형식입니다.',
     }));
@@ -21,9 +26,12 @@ const validatePassword = (password: string) => {
   return passwordRegex.test(password);
 };
 
-export const validatePasswordForm = (password: string, setErrors: any) => {
+export const validatePasswordForm = (
+  password: string,
+  setErrors: React.Dispatch<React.SetStateAction<SignupError>>
+) => {
   if (!validatePassword(password)) {
-    setErrors((prev: any) => ({
+    setErrors((prev) => ({
       ...prev,
       password: '비밀번호는 최소 8자, 숫자 및 특수 문자를 포함해야 합니다.',
     }));
@@ -36,10 +44,10 @@ export const validatePasswordForm = (password: string, setErrors: any) => {
 export const checkConfirmPassword = (
   password: string,
   confirmPassword: string,
-  setErrors: any
+  setErrors: React.Dispatch<React.SetStateAction<SignupError>>
 ) => {
   if (password !== confirmPassword) {
-    setErrors((prev: any) => ({
+    setErrors((prev) => ({
       ...prev,
       confirmPassword: '비밀번호가 일치하지 않습니다.',
     }));

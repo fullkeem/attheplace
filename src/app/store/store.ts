@@ -1,21 +1,5 @@
 import { create } from 'zustand';
 
-/**토큰 */
-interface Token {
-  user_pk: number;
-  access_token: string;
-}
-
-interface TokenStore {
-  token: Token | null;
-  setToken: (token: Token) => void;
-}
-
-// export const useTokenStore = create<TokenStore>((set) => ({
-//   token: ,
-//   setToken: (token) => set({token: token})
-// }));
-
 /** 진행바 */
 interface Progress {
   currentStep: number;

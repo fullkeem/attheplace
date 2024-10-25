@@ -1,7 +1,6 @@
 'use client';
 
 import classNames from 'classnames';
-import { useProgressBarStore } from '../store/store';
 
 interface ProgressBarProps {
   currentStep: number;

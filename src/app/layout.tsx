@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Menu from './_components/NavMenu';
 import RandomBackground from './_components/RandomBackground';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 export const metadata: Metadata = {
   title: 'At The Place',

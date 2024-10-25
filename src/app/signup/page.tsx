@@ -1,6 +1,6 @@
 'use client';
 
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { useState } from 'react';
 import { faker } from '@faker-js/faker';
 import {
@@ -82,9 +82,11 @@ export default function Signup() {
           alert('회원가입이 완료되었습니다.');
           window.location.href = '/';
         }
-      } catch (error: any) {
-        const message = error.data.message;
-        handleError(message, setErrors);
+      } catch (error: unknown) {
+        if (error instanceof AxiosError) {
+          const message = error.response?.data?.message;
+          handleError(message, setErrors);
+        }
       }
     }
   };

@@ -9,12 +9,6 @@ import classNames from 'classnames';
 import arrow from '/public/icons/menuArrow.svg';
 import { useUserInfoStore } from '../store/store';
 
-interface UserInfo {
-  email: string;
-  nickName: string;
-  profileImage: string;
-}
-
 export default function Menu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { userInfo, setUserInfo, clearUserInfo } = useUserInfoStore();
@@ -80,7 +74,7 @@ export default function Menu() {
         </button>
         <ul className="mt-14 flex flex-col gap-7 p-6">
           <li className="py-1">
-            {!!userInfo?.id ? (
+            {userInfo?.id ? (
               <Link href={`/mypage/${userInfo.id}`} className="flexBetween">
                 <div>마이페이지</div>
                 <Image src={arrow} alt="" aria-hidden />
@@ -93,7 +87,7 @@ export default function Menu() {
             )}
           </li>
           <li className="py-1">
-            {!!userInfo?.nickname ? (
+            {userInfo?.nickname ? (
               <button
                 type="button"
                 onClick={handleLogout}

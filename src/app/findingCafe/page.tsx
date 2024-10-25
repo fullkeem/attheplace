@@ -35,7 +35,7 @@ interface Answers {
   decaffe?: boolean;
 }
 
-export default function findingCafe() {
+export default function FindingCafe() {
   const currentStep = useProgressBarStore((state) => state.currentStep);
   const setCurrentStep = useProgressBarStore((state) => state.setCurrentStep);
 

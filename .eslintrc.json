@@ -4,11 +4,10 @@
     "es2021": true
   },
   "extends": [
-    "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "next",
-    "next/core-web-vitals"
+    "next/core-web-vitals",
+    "next/typescript",
+    "plugin:@typescript-eslint/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -19,7 +18,5 @@
     "sourceType": "module"
   },
   "plugins": ["react", "@typescript-eslint"],
-  "rules": {
-    // Custom rules go here
-  }
+  "rules": {}
 }
