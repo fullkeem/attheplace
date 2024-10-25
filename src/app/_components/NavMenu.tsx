@@ -3,53 +3,59 @@
 import axios from 'axios';
 import Link from 'next/link';
 import Image from 'next/image';
-import classNames from 'classnames';
 import { useState, useEffect } from 'react';
+
+import classNames from 'classnames';
 import arrow from '/public/icons/menuArrow.svg';
+import { useUserInfoStore } from '../store/store';
 
 interface UserInfo {
   email: string;
   nickName: string;
+  profileImage: string;
 }
 
 export default function Menu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const { userInfo, setUserInfo, clearUserInfo } = useUserInfoStore();
 
   const toggleMenu = () => {
     setIsMenuOpen((prevState) => !prevState);
   };
 
-  const fetchUserInfo = async () => {
-    const token = JSON.parse(localStorage.getItem('token') || 'null');
-    if (!token || !token.accessToken) {
-      console.log('no token');
-      return;
-    }
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const token = JSON.parse(localStorage.getItem('token') || 'null');
+        if (token === null) return;
 
-    try {
-      const response = await axios.get(
-        `http://localhost:10010/mypages/${token.user_pk}`,
-        {
-          headers: {
-            Authorization: token.accessToken,
-          },
-        }
-      );
+        const response = await axios.get(
+          `http://localhost:10010/mypages/${token.user_pk}`,
+          {
+            headers: {
+              Authorization: token.accessToken,
+            },
+          }
+        );
 
-      setUserInfo(response.data);
-      console.log('유저 정보:', response.data);
-      setIsMenuOpen((prevState) => !prevState);
-    } catch (error: unknown) {
-      console.error('사용자 정보 불러오기 실패:', error);
-    }
-  };
+        setUserInfo(response.data);
+        console.log('유저 정보:', response.data);
+        console.log(userInfo);
+        setIsMenuOpen((prevState) => !prevState);
+      } catch (error: unknown) {
+        console.error('사용자 정보 불러오기 실패:', error);
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
 
   // 로그아웃 함수
   const handleLogout = () => {
     localStorage.removeItem('token');
-    setUserInfo(null);
+    clearUserInfo();
     toggleMenu();
+    window.location.href = '/';
   };
 
   // 메뉴가 열리고 닫히는 설정
@@ -74,12 +80,8 @@ export default function Menu() {
         </button>
         <ul className="mt-14 flex flex-col gap-7 p-6">
           <li className="py-1">
-            {userInfo ? (
-              <Link
-                href="/mypage"
-                onClick={fetchUserInfo}
-                className="flexBetween"
-              >
+            {!!userInfo?.id ? (
+              <Link href={`/mypage/${userInfo.id}`} className="flexBetween">
                 <div>마이페이지</div>
                 <Image src={arrow} alt="" aria-hidden />
               </Link>
@@ -91,7 +93,7 @@ export default function Menu() {
             )}
           </li>
           <li className="py-1">
-            {userInfo ? (
+            {!!userInfo?.nickname ? (
               <button
                 type="button"
                 onClick={handleLogout}

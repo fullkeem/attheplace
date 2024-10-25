@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import axios from "axios";
+import { useState } from 'react';
+import axios from 'axios';
 
 interface LoginForm {
   email: string;
@@ -10,11 +10,12 @@ interface LoginForm {
 
 export default function Login() {
   const [loginData, setLoginData] = useState<LoginForm>({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
-  const [errors, setErrors] = useState<string>("");
+  const [errors, setErrors] = useState<string>('');
+  const [token, setToken] = useState(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginData({
@@ -27,42 +28,43 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:10010/users/login", {
+      const response = await axios.post('http://localhost:10010/users/login', {
         email: loginData.email,
         pwd: loginData.password,
       });
 
-      console.log("로그인 성공 :", response.data);
-      alert("로그인 성공!");
+      console.log('로그인 성공 :', response.data);
+      alert('로그인 성공!');
 
-      localStorage.setItem("token", JSON.stringify(response.data.token));
-      window.location.href = "/";
+      localStorage.setItem('token', JSON.stringify(response.data.token));
+
+      window.location.href = '/';
     } catch (error: any) {
       if (!error.response) {
-        console.error("요청 중 오류 :", error);
-        setErrors("요청 중 문제가 발생했습니다. 나중에 다시 시도해주세요.");
+        console.error('요청 중 오류 :', error);
+        setErrors('요청 중 문제가 발생했습니다. 나중에 다시 시도해주세요.');
         return;
       }
       const { status, data } = error.response;
 
       if (status === 400) {
-        setErrors("아이디 또는 비밀번호가 잘못되었습니다.");
+        setErrors('아이디 또는 비밀번호가 잘못되었습니다.');
         return; // 인증 오류 처리 후 종료
       }
       // 기타 에러 처리
-      setErrors("로그인에 실패했습니다: " + data.message);
+      setErrors('로그인에 실패했습니다: ' + data.message);
     }
   };
 
   return (
-    <div className="flex flex-col justify-center items-centerm mt-10 p-10 bg-[#353434]/75 rounded-xl">
-      <div className="text-center mb-8">
+    <div className="items-centerm mt-10 flex flex-col justify-center rounded-xl bg-[#353434]/75 p-10">
+      <div className="mb-8 text-center">
         <h2 className="text-lg font-semibold text-white">로그인</h2>
       </div>
 
       <form className="w-full bg-transparent" onSubmit={handleLogin}>
         <div className="mb-4">
-          <label htmlFor="email" className="block text-sm text-white mb-1">
+          <label htmlFor="email" className="mb-1 block text-sm text-white">
             아이디
           </label>
           <input
@@ -77,7 +79,7 @@ export default function Login() {
         </div>
 
         <div className="mb-6">
-          <label htmlFor="password" className="block text-sm text-white mb-1">
+          <label htmlFor="password" className="mb-1 block text-sm text-white">
             비밀번호 입력
           </label>
           <input
@@ -92,12 +94,12 @@ export default function Login() {
         </div>
 
         {/* 에러 메시지 출력 */}
-        {errors && <p className="text-red-500 mb-4">{errors}</p>}
+        {errors && <p className="mb-4 text-red-500">{errors}</p>}
 
-        <div className="mt-6 mb-4">
+        <div className="mb-4 mt-6">
           <button
             type="submit"
-            className="w-full py-3  text-white font-semibold bg-[#FF6347] rounded-sm"
+            className="w-full rounded-sm bg-[#FF6347] py-3 font-semibold text-white"
           >
             로그인
           </button>

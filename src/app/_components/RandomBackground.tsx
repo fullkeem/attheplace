@@ -1,22 +1,27 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 export default function RandomBackground() {
-  const [backgroundImage, setBackgroundImage] = useState("/images/background/background_1.webp");
+  const [backgroundImage, setBackgroundImage] = useState(
+    '/images/background/background_1.webp'
+  );
   const pathname = usePathname();
 
   const images = [
-    "/images/background/background_1.webp",
-    "/images/background/background_2.webp",
-    "/images/background/background_3.webp",
-    "/images/background/background_4.webp",
-    "/images/background/background_5.webp",
-    "/images/background/background_6.webp",
-    "/images/background/background_7.webp",
-    "/images/background/background_8.webp",
+    '/images/background/background_1.webp',
+    '/images/background/background_2.webp',
+    '/images/background/background_3.webp',
+    '/images/background/background_4.webp',
+    '/images/background/background_5.webp',
+    '/images/background/background_6.webp',
+    '/images/background/background_7.webp',
+    '/images/background/background_8.webp',
+    '/images/background/background_9.webp',
+    '/images/background/background_10.webp',
+    '/images/background/background_11.webp',
   ];
 
   //이미지 랜덤
@@ -24,11 +29,6 @@ export default function RandomBackground() {
     const randomIndex = Math.floor(Math.random() * images.length);
     return images[randomIndex];
   };
-
-  useEffect(() => {
-    const randomImage = getRandomImage();
-    setBackgroundImage(randomImage);
-  }, [pathname]);
 
   useEffect(() => {
     const img = new window.Image();
@@ -41,14 +41,16 @@ export default function RandomBackground() {
   }, [pathname]);
 
   return (
-    <picture className="absolute z-[-1] flex w-dvw h-dvh">
-      <Image
-        src={backgroundImage}
-        className="bg-no-repeat bg-cover bg-center"
-        alt=""
-        fill
-        aria-hidden
-      />
-    </picture>
+    <div className="absolute z-[-1] flex h-dvh w-dvw overflow-hidden">
+      <picture className="relative h-full w-full">
+        <Image
+          src={backgroundImage}
+          className="h-full w-full scale-110 bg-center bg-no-repeat blur-[2px]"
+          alt=""
+          fill
+          aria-hidden
+        />
+      </picture>
+    </div>
   );
 }
