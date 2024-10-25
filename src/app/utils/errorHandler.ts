@@ -1,4 +1,9 @@
-export const handleError = (message: string, setErrors) => {
+import { Dispatch, SetStateAction } from 'react';
+
+export const handleError = (
+  message: string,
+  setErrors: Dispatch<SetStateAction<Record<string, string>>>
+) => {
   switch (message) {
     case '이메일을 입력하세요':
       setErrors((prev) => ({
