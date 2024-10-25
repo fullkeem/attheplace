@@ -9,7 +9,7 @@ import {
   checkConfirmPassword,
 } from '../utils/validators';
 import SignupFormField from '../_components/SignupFormField';
-import { handleError } from '../utils/errorHandler';
+import { handleError, SignupError } from '../utils/errorHandler';
 
 interface SignupFormData {
   email: string;
@@ -17,13 +17,6 @@ interface SignupFormData {
   confirmPassword: string;
   nickname: string;
   profileImage: string;
-}
-
-interface SignupError {
-  email: string;
-  password: string;
-  confirmPassword: string;
-  nickname: string;
 }
 
 export default function Signup() {

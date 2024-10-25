@@ -1,8 +1,13 @@
-import { Dispatch, SetStateAction } from 'react';
+export interface SignupError {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  nickname: string;
+}
 
 export const handleError = (
   message: string,
-  setErrors: Dispatch<SetStateAction<Record<string, string>>>
+  setErrors: React.Dispatch<React.SetStateAction<SignupError>>
 ) => {
   switch (message) {
     case '이메일을 입력하세요':
