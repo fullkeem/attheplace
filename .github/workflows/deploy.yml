@@ -23,8 +23,8 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.AUTO_ACTIONS }}
         with:
           source-directory: 'output'
-          destination-github-username: ['fullkeem']
-          destination-repository-name: ['attheplace']
+          destination-github-username: 'fullkeem'
+          destination-repository-name: 'attheplace'
           user-email: ${{ secrets.EMAIL }}
           commit-message: ${{ github.event.commits[0].message }}
           target-branch: main
