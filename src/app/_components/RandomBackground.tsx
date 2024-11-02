@@ -20,7 +20,6 @@ export default function RandomBackground() {
     '/images/background/background_7.webp',
     '/images/background/background_8.webp',
     '/images/background/background_9.webp',
-    '/images/background/background_10.webp',
     '/images/background/background_11.webp',
   ];
 

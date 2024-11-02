@@ -1,50 +1,88 @@
+'use client';
+
+import Image from 'next/image';
+import { useEffect, useRef } from 'react';
+import cafeList from '../mock/cafe.json';
+import CafeCard from '../_components/CafeCard';
+
 export default function Map() {
+  const mapRef = useRef<null | naver.maps.Map>(null);
+
+  useEffect(() => {
+    const initMap = () => {
+      const mapOptions = {
+        center: new naver.maps.LatLng(37.3595704, 127.105399),
+        zoom: 10,
+      };
+
+      const map = new naver.maps.Map('map', mapOptions);
+
+      cafeList.cafeList.forEach((cafe) => {
+        new naver.maps.Marker({
+          position: new naver.maps.LatLng(cafe.위도, cafe.경도),
+          map: map,
+          title: cafe.name,
+        });
+      });
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const currentLocation = new naver.maps.LatLng(
+            position.coords.latitude,
+            position.coords.longitude
+          );
+          new naver.maps.Marker({
+            position: currentLocation,
+            map: map,
+            title: 'My Location',
+          });
+          map.setCenter(currentLocation);
+        });
+      }
+    };
+
+    if (window.naver && window.naver.maps) {
+      initMap();
+    } else {
+      const mapScript = document.createElement('script');
+      mapScript.onload = () => initMap();
+      mapScript.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_ID_KEY}`;
+      document.head.appendChild(mapScript);
+    }
+  }, []);
+
+  // 현재 위치로 지도 중심 이동
+  const handleCurrentLocationClick = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const currentLocation = new naver.maps.LatLng(
+          position.coords.latitude,
+          position.coords.longitude
+        );
+        if (mapRef.current) {
+          mapRef.current.setCenter(currentLocation);
+        }
+      });
+    }
+  };
+
   return (
-    <ul>
-      {/* 단체석 */}
-      <li>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 30 30"
-          width={30}
-          aria-hidden="true"
-        >
-          <path
-            fillRule="evenodd"
-            d="M17.5 7.16A2.51 2.51 0 0115 9.68a2.51 2.51 0 01-2.5-2.52A2.51 2.51 0 0115 4.64a2.51 2.51 0 012.5 2.52zm-1.3 0A1.21 1.21 0 0115 8.38a1.21 1.21 0 01-1.2-1.22c0-.68.55-1.22 1.2-1.22.65 0 1.2.54 1.2 1.22zM7 17.15a2.51 2.51 0 002.5-2.52A2.51 2.51 0 007 12.1a2.51 2.51 0 00-2.5 2.52A2.51 2.51 0 007 17.15zm0-1.3c.65 0 1.2-.54 1.2-1.22A1.21 1.21 0 007 13.4c-.65 0-1.2.53-1.2 1.22 0 .68.55 1.22 1.2 1.22zm0 1.86a4.65 4.65 0 00-4.65 4.65v3a.65.65 0 101.3 0v-3a3.35 3.35 0 016.7 0v3a.65.65 0 101.3 0v-3A4.65 4.65 0 007 17.71zm18.5-3.08a2.51 2.51 0 01-2.5 2.52 2.51 2.51 0 01-2.5-2.52A2.51 2.51 0 0123 12.1a2.51 2.51 0 012.5 2.52zm-1.3 0a1.21 1.21 0 01-1.2 1.22 1.21 1.21 0 01-1.2-1.22c0-.69.55-1.22 1.2-1.22.65 0 1.2.53 1.2 1.22zM23 17.7a4.65 4.65 0 00-4.65 4.65v3a.65.65 0 101.3 0v-3a3.35 3.35 0 016.7 0v3a.65.65 0 101.3 0v-3A4.65 4.65 0 0023 17.71zm-12.65-2.82a4.65 4.65 0 019.3 0 .65.65 0 11-1.3 0 3.35 3.35 0 10-6.7 0 .65.65 0 11-1.3 0z"
-          ></path>
-        </svg>
-      </li>
-
-      {/* 반려동물 */}
-      <li>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 30 30"
-          width={30}
-          aria-hidden="true"
-        >
-          <path d="M3.8 3.64c0-.35.3-.64.65-.64h8.06c1.13 0 2.1.48 2.85 1.1.74.62 1.28 1.4 1.56 2.12.76 1.92 1.16 4.4.94 6.43a5.84 5.84 0 01-.88 2.7 2.76 2.76 0 01-2.34 1.25 3.5 3.5 0 01-1.73-.4 2.48 2.48 0 01-.99-1 4.2 4.2 0 01-.4-2v-.03l.11-1.87h-1.26c.03.52.05 1.03.05 1.48 0 .5-.03.98-.1 1.27-.2.75-.53 1.83-.92 3.07l-.22.74c-.48 1.55-1.01 3.3-1.45 4.99a.64.64 0 01-.32.4 7.4 7.4 0 00-1.7 1.3c-.36.38-.64.78-.8 1.17H8.1a.64.64 0 010 1.28H4.14a.64.64 0 01-.64-.64c0-1.08.63-2.02 1.3-2.7a8.75 8.75 0 011.76-1.4c.43-1.64.94-3.3 1.39-4.78l.23-.75c.38-1.24.7-2.28.9-3 .02-.12.05-.44.05-.95a22.8 22.8 0 00-.24-3.26 6.77 6.77 0 00-.1-.5H7.11c-1.56 0-2.39-1.15-2.8-2.25a9.52 9.52 0 01-.5-3.13zm6.48 6.67h1.4l.19-3.26a.64.64 0 111.28.07l-.34 6.1c0 .43.02.95.25 1.37.1.2.25.37.48.5.23.12.57.22 1.1.22.57 0 .97-.24 1.29-.69.33-.48.56-1.2.66-2.1.19-1.8-.17-4.08-.86-5.83-.2-.5-.62-1.12-1.2-1.6a3.17 3.17 0 00-2.02-.8H6.4c-.3.48-.79.8-1.18.99.07.35.16.7.28 1.04.34.91.84 1.42 1.6 1.42h2.13c.22 0 .42.12.54.3.1.17.18.39.23.58a16.54 16.54 0 01.27 1.7zm7.87 4.75a.64.64 0 01.84.34l2.09 4.88a8.28 8.28 0 01.93 3.95 3.23 3.23 0 01-.45 1.47 5.1 5.1 0 002.17-.6c.8-.46 1.49-1.27 1.49-2.81a.64.64 0 111.28 0c0 2.03-.95 3.25-2.13 3.93a6.62 6.62 0 01-3.19.78H10.15a.64.64 0 01-.64-.7c.03-.33.18-.75.38-1.16.2-.42.48-.9.82-1.33a5.6 5.6 0 011.2-1.2 2.85 2.85 0 011.63-.57h1.97a.64.64 0 010 1.29h-1.97c-.26 0-.56.1-.89.33-.33.23-.64.56-.92.93a6.49 6.49 0 00-.69 1.1v.03h7.72c.81 0 1.26-.22 1.52-.46.26-.25.42-.63.46-1.13a7.04 7.04 0 00-.82-3.3v-.02l-.01-.01-2.1-4.9a.64.64 0 01.34-.84zm-7.2-9.53a.5.5 0 11-1 0 .5.5 0 011 0z"></path>
-          \
-        </svg>
-      </li>
-
-      {/* 디카페인 */}
-      <li>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 30 30"
-          width={30}
-          aria-hidden="true"
-        >
-          <path
-            fillRule="evenodd"
-            d="M26.2 9.52c-.88 3.22-3.45 5.35-5.73 4.75-2.28-.6-3.42-3.7-2.53-6.92.88-3.22 3.45-5.35 5.73-4.75 2.28.6 3.41 3.7 2.53 6.92zm-1.16-.3a6.37 6.37 0 01-1.96 3.2c-.83.7-1.64.88-2.3.7-.65-.16-1.26-.72-1.63-1.72-.36-1-.43-2.33-.05-3.74a6.38 6.38 0 011.95-3.21c.84-.7 1.65-.88 2.3-.7.66.17 1.27.72 1.64 1.73.36 1 .43 2.33.05 3.73zm-2.85-4.63c.23.15.3.45.15.68a3.07 3.07 0 00-.5 1.27c-.1.8.19 1.35.56 1.93l.1.16c.35.53.78 1.19.7 2.04a4.42 4.42 0 01-.46 1.56.5.5 0 01-.67.23.49.49 0 01-.23-.66c.2-.39.32-.8.36-1.2.05-.52-.2-.9-.57-1.48l-.08-.13a3.63 3.63 0 01-.06-4.25.5.5 0 01.7-.15zm-13.85 6.5a.64.64 0 00-.54-.73.65.65 0 00-.74.54c-.2 1.31-.2 2.83.41 4.32a6.57 6.57 0 003.24 3.34l.23.13.02.02c1.06.58 1.83 1.01 2.26 1.95.45.97.63 2.12.61 3.18a.64.64 0 00.65.65c.36 0 .65-.28.66-.63a8.73 8.73 0 00-.73-3.74c-.62-1.33-1.76-1.96-2.76-2.5l-.03-.03a36.41 36.41 0 01-.26-.14c-1.09-.6-2.07-1.25-2.68-2.71a6.76 6.76 0 01-.34-3.66zm5.46 16.23c3.91-1.03 5.87-6.34 4.37-11.86s-5.88-9.16-9.8-8.12C4.47 8.37 2.5 13.69 4 19.2c1.5 5.52 5.89 9.16 9.8 8.12zm2.99-4.68c.69-1.87.8-4.3.12-6.85a11.58 11.58 0 00-3.58-5.87c-1.55-1.28-3.2-1.72-4.62-1.34-1.43.37-2.63 1.57-3.32 3.44a11.44 11.44 0 00-.13 6.85 11.57 11.57 0 003.58 5.87c1.55 1.29 3.2 1.73 4.62 1.35 1.43-.38 2.64-1.57 3.33-3.45z"
-          ></path>
-        </svg>
-      </li>
-
-      {/* 테라스 */}
-    </ul>
+    <div className="flexCenter relative h-full w-full">
+      <div id="map" className="h-full w-full"></div>
+      <button
+        onClick={handleCurrentLocationClick}
+        className="absolute left-5 top-5 rounded border-gray-300 bg-gray-300 p-2"
+      >
+        <Image
+          src={'/icons/myLocation.svg'}
+          alt="내 위치 찾기"
+          width={25}
+          height={25}
+        />
+      </button>
+      <div className="absolute bottom-20 w-full bg-white">
+        <CafeCard />
+      </div>
+    </div>
   );
 }

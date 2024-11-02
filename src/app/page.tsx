@@ -4,7 +4,7 @@ import attheplace from '/public/icons/attheplaceLogo.svg';
 
 export default function Home() {
   return (
-    <>
+    <div className="w-[350px] px-5">
       <Image src={attheplace} alt="attheplace 로고" className="mx-auto mt-5" />
       <ul className="mt-3 flex flex-col items-center gap-14 rounded-xl bg-[#353434]/70 p-6">
         <li className="flexCenter flex-col gap-1 text-center">
@@ -33,6 +33,6 @@ export default function Home() {
           </Link>
         </li>
       </ul>
-    </>
+    </div>
   );
 }

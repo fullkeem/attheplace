@@ -1,8 +1,7 @@
 'use client';
 
-import axios, { AxiosError } from 'axios';
 import { useState } from 'react';
-import { faker } from '@faker-js/faker';
+import { useSignupMutation } from '../hooks/useAuthQuery';
 import {
   validateEmailForm,
   validatePasswordForm,
@@ -16,7 +15,7 @@ interface SignupFormData {
   password: string;
   confirmPassword: string;
   nickname: string;
-  profileImage: string;
+  profile_image: string;
 }
 
 export default function Signup() {
@@ -25,7 +24,7 @@ export default function Signup() {
     password: '',
     confirmPassword: '',
     nickname: '',
-    profileImage: faker.image.avatar(),
+    profile_image: '/images/coffee-bean.png',
   });
 
   const [errors, setErrors] = useState<SignupError>({
@@ -35,21 +34,13 @@ export default function Signup() {
     nickname: '',
   });
 
+  const { mutate: signupMutate } = useSignupMutation();
+
   // 입력값 저장
   const handleDataChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
       [e.target.id]: e.target.value,
-    });
-  };
-
-  // API 요청 처리
-  const sendSignupRequest = async (formData: SignupFormData) => {
-    return await axios.post('http://localhost:10010/member/join', {
-      email: formData.email,
-      nickname: formData.nickname,
-      password: formData.password,
-      profile_image: formData.profileImage,
     });
   };
 
@@ -75,29 +66,22 @@ export default function Signup() {
         nickname: '',
       });
 
-      try {
-        const response = await sendSignupRequest(formData);
-        if (response) {
-          console.log('회원가입 성공:', response.data);
-          alert('회원가입이 완료되었습니다.');
-          window.location.href = '/';
-        }
-      } catch (error: unknown) {
-        if (error instanceof AxiosError) {
-          const message = error.response?.data?.message;
-          handleError(message, setErrors);
-        }
-      }
+      signupMutate(formData, {
+        onError: (error: any) => {
+          const errorMessage = error.response?.data.message;
+          handleError(errorMessage, setErrors);
+        },
+      });
     }
   };
 
   return (
     <form
-      className="mt-10 w-full rounded-xl bg-[#353434]/70 p-8"
+      className="mt-10 w-[300px] rounded-xl bg-[#353434]/70 p-10"
       onSubmit={handleSubmit}
     >
       <fieldset className="flex flex-col gap-6 border-none">
-        <legend className="mb-8 w-full text-center text-lg font-bold text-white">
+        <legend className="mb-10 w-full text-center text-lg font-bold text-white">
           회원가입
         </legend>
 

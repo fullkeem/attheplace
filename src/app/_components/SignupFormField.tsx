@@ -71,7 +71,9 @@ export default function SignupFormField({
             onChange={handleDataChange}
             required
           />
-          {field.error && <p className="text-red-500">{field.error}</p>}
+          {field.error && (
+            <p className="mt-1 text-sm text-red-500">{field.error}</p>
+          )}
         </div>
       ))}
     </>
