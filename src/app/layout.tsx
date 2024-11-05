@@ -21,13 +21,15 @@ export default function RootLayout({
       <body className="relative flex h-dvh flex-col">
         <UseReactQuery>
           <RandomBackground />
-          <header className="flexCenter relative z-10 w-full bg-[url('/images/blackBg.webp')] bg-cover bg-center bg-no-repeat px-10 py-5">
+          <header className="flexCenter fixed z-10 w-full bg-[url('/images/blackBg.webp')] bg-cover bg-center bg-no-repeat px-10 py-5">
             <h1 className="self-center font-serif text-xl leading-5 text-slate-200 underline underline-offset-2">
               <Link href="/">AT THE PLACE</Link>
             </h1>
             <Menu />
           </header>
-          <main className="flex h-full flex-col items-center">{children}</main>
+          <main className="mt-12 flex h-full flex-col items-center">
+            {children}
+          </main>
         </UseReactQuery>
       </body>
     </html>

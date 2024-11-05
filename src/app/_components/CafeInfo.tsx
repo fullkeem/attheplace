@@ -4,13 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { UserLikeList } from '../store/authStore';
 
-export default function CafeInfo({
-  cafe,
-  key,
-}: {
-  cafe: UserLikeList;
-  key: number;
-}) {
+export default function CafeInfo({ cafe }: { cafe: UserLikeList }) {
   const router = useRouter();
 
   const handleClick = () => {
@@ -18,11 +12,7 @@ export default function CafeInfo({
   };
 
   return (
-    <li
-      key={key}
-      className="mt-3 rounded-xl bg-gray-400/70"
-      onClick={handleClick}
-    >
+    <li className="mt-3 rounded-xl bg-gray-400/70" onClick={handleClick}>
       <div className="flexBetween p-2">
         <div className="flex flex-col gap-1 text-sm">
           <h3 className="font-bold">{cafe.cafe_name}</h3>
@@ -35,8 +25,8 @@ export default function CafeInfo({
         </div>
         <div>
           <Image
-            src={'/images/blackBg.webp'}
-            alt=""
+            src={cafe.cafe_image}
+            alt="카페 이미지"
             className="rounded-md"
             width={80}
             height={70}

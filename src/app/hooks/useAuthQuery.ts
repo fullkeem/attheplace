@@ -55,29 +55,9 @@ export const useUserInfoQuery = () => {
     queryKey: ['userInfo'],
     queryFn: async () => {
       const response = await fetchUserInfo();
-
       setUserInfo(response.userInfo);
+      return response.userInfo;
     },
     staleTime: 1000 * 60 * 5,
   });
 };
-
-// export const useUserInfoQuery = () => {
-//   const { setUserInfo } = useUserInfoStore();
-
-//   // useQuery로 사용자 정보를 가져오고 queryFn에서 setUserInfo를 업데이트
-//   const { data, error, isLoading } = useQuery({
-//     queryKey: ['userInfo'],
-//     queryFn: async () => {
-//       // fetchUserInfo를 호출하여 데이터를 가져옴
-//       const response = await fetchUserInfo();
-//       // 데이터를 가져온 후 setUserInfo에 저장
-//       setUserInfo(response);
-//       // 데이터를 반환하여 useQuery의 data에 저장
-//       return response;
-//     },
-//     staleTime: 1000 * 60 * 5, // 5분 동안 캐시 유지
-//   });
-
-//   return { data, error, isLoading };
-// };

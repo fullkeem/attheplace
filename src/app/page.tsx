@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div className="w-[350px] px-5">
       <Image src={attheplace} alt="attheplace 로고" className="mx-auto mt-5" />
-      <ul className="mt-3 flex flex-col items-center gap-14 rounded-xl bg-[#353434]/70 p-6">
+      <ul className="mt-3 flex flex-col items-center gap-10 rounded-xl bg-[#353434]/70 p-6">
         <li className="flexCenter flex-col gap-1 text-center">
           <h3 className="font-serif font-semibold">All the place you need</h3>
           <p className="text-sm">오직 당신을 위한 맞춤형 카페 찾기 플랫폼</p>

@@ -79,31 +79,3 @@ export default function SignupFormField({
     </>
   );
 }
-
-// export const InputField = ({
-//   id,
-//   label,
-//   type,
-//   value,
-//   placeholder,
-//   error,
-//   handleChange,
-// }: InputFieldProps) => {
-//   return (
-//     <div className="flex flex-col">
-//       <label htmlFor={id} className="text-sm text-white">
-//         {label}
-//       </label>
-//       <input
-//         type={type}
-//         id={id}
-//         value={value}
-//         className="inputCommon"
-//         placeholder={placeholder}
-//         onChange={handleChange}
-//         required
-//       />
-//       {error && <p className="text-red-500">{error}</p>}
-//     </div>
-//   );
-// };

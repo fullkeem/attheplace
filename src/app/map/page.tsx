@@ -1,67 +1,56 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useRef } from 'react';
-import cafeList from '../mock/cafe.json';
+import { useRef } from 'react';
+import { useMap } from '../hooks/useMap';
 import CafeCard from '../_components/CafeCard';
+import { Cafe, useCafeListStore } from '../store/cafeStore';
 
 export default function Map() {
+  const { filteredCafes } = useCafeListStore();
   const mapRef = useRef<null | naver.maps.Map>(null);
+  const cafeCardRefs = useRef<{ [key: number]: HTMLLIElement | null }>({});
 
-  useEffect(() => {
-    const initMap = () => {
-      const mapOptions = {
-        center: new naver.maps.LatLng(37.3595704, 127.105399),
-        zoom: 10,
-      };
+  // 커스텀 훅을 사용하여 지도와 마커 초기화
+  useMap({
+    mapRef,
+    cafes: filteredCafes,
+    onMarkerClick: (cafe) => handleMarkerClick(cafe),
+  });
 
-      const map = new naver.maps.Map('map', mapOptions);
+  // 카드 ref를 설정하는 콜백 함수를 변수에 저장
+  const setCafeCardRef = (cafeId: number) => (el: HTMLLIElement | null) => {
+    cafeCardRefs.current[cafeId] = el;
+  };
 
-      cafeList.cafeList.forEach((cafe) => {
-        new naver.maps.Marker({
-          position: new naver.maps.LatLng(cafe.위도, cafe.경도),
-          map: map,
-          title: cafe.name,
-        });
-      });
+  // 마커 클릭 시 지도 및 CafeCard 중앙 배치
+  const handleMarkerClick = (cafe: Cafe) => {
+    centerMapToMarker(cafe.latitude, cafe.longitude);
+    centerCafeCard(cafe.id);
+  };
 
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          const currentLocation = new naver.maps.LatLng(
-            position.coords.latitude,
-            position.coords.longitude
-          );
-          new naver.maps.Marker({
-            position: currentLocation,
-            map: map,
-            title: 'My Location',
-          });
-          map.setCenter(currentLocation);
-        });
-      }
-    };
-
-    if (window.naver && window.naver.maps) {
-      initMap();
-    } else {
-      const mapScript = document.createElement('script');
-      mapScript.onload = () => initMap();
-      mapScript.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_ID_KEY}`;
-      document.head.appendChild(mapScript);
+  const centerMapToMarker = (latitude: number, longitude: number) => {
+    if (mapRef.current) {
+      mapRef.current.setCenter(new naver.maps.LatLng(latitude, longitude));
     }
-  }, []);
+  };
+
+  const centerCafeCard = (cafeId: number) => {
+    const cardElement = cafeCardRefs.current[cafeId];
+    if (cardElement) {
+      cardElement.scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest',
+      });
+    }
+  };
 
   // 현재 위치로 지도 중심 이동
   const handleCurrentLocationClick = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        const currentLocation = new naver.maps.LatLng(
-          position.coords.latitude,
-          position.coords.longitude
-        );
-        if (mapRef.current) {
-          mapRef.current.setCenter(currentLocation);
-        }
+        centerMapToMarker(position.coords.latitude, position.coords.longitude);
       });
     }
   };
@@ -80,8 +69,12 @@ export default function Map() {
           height={25}
         />
       </button>
-      <div className="absolute bottom-20 w-full bg-white">
-        <CafeCard />
+      <div className="absolute bottom-6 w-full px-5">
+        <ul className="scrollbar-hide flex flex-row space-x-4 overflow-y-hidden overflow-x-scroll">
+          {filteredCafes.map((cafe) => (
+            <CafeCard key={cafe.id} cafe={cafe} ref={setCafeCardRef(cafe.id)} />
+          ))}
+        </ul>
       </div>
     </div>
   );

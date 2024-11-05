@@ -2,11 +2,13 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { LoginForm } from '../api/authApi';
 import { useAuthStore } from '../store/authStore';
 import { useLoginMutation } from '../hooks/useAuthQuery';
 
 export default function Login() {
+  const router = useRouter();
   const loginMutation = useLoginMutation();
   const { loginData, setLoginData } = useAuthStore();
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -21,6 +23,7 @@ export default function Login() {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     loginMutation.mutate(loginData, {
+      onSuccess: () => router.push('/'),
       onError: () => {
         setErrorMessage('아이디 또는 비밀번호가 잘못되었습니다.');
       },

@@ -31,11 +31,12 @@ export const useAuthStore = create<AuthStore>((set) => ({
 export interface UserLikeList {
   cafe_id: number;
   cafe_name: string;
+  cafe_image: string;
   opening_hours: string;
   contact_number: string;
   location_address: string;
 }
-interface UserInfo {
+export interface UserInfo {
   nickname: string;
   profile_image: string;
   likeList: UserLikeList[];
@@ -46,7 +47,7 @@ interface UserStore {
   setUserInfo: (user: UserInfo) => void;
   clearUserInfo: () => void;
   addLikeList: (cafe: UserLikeList) => void;
-  removeLikeList: (cafeId: number) => void;
+  removeLikeList: (id: number) => void;
 }
 export const useUserInfoStore = create<UserStore>()(
   persist(
@@ -60,12 +61,12 @@ export const useUserInfoStore = create<UserStore>()(
             likeList: [...state.userInfo.likeList, cafe],
           },
         })),
-      removeLikeList: (cafeId) =>
+      removeLikeList: (id) =>
         set((state) => ({
           userInfo: {
             ...state.userInfo,
             likeList: state.userInfo.likeList.filter(
-              (cafe) => cafe.cafe_id !== cafeId
+              (cafe) => cafe.cafe_id !== id
             ),
           },
         })),

@@ -45,7 +45,6 @@ export default function Detail() {
   // 좋아요 등록/취소
   const handleLikeToggle = () => {
     if (!cafeInfo) return;
-
     toggleLikeMutation.mutate(cafeInfo.id, {
       onSuccess: () => {
         refetch(); // 좋아요/취소 후 유조 종보 재요청
@@ -70,7 +69,7 @@ export default function Detail() {
           />
         </button>
 
-        <h1 className="text-lg font-bold">{cafeInfo.cafeName}</h1>
+        <h1 className="text-lg font-bold">{cafeInfo.cafe_name}</h1>
 
         <button type="button" onClick={handleLikeToggle}>
           <Image
@@ -86,7 +85,7 @@ export default function Detail() {
 
       <picture className="mt-8 flex justify-center">
         <Image
-          src={'/images/어반플렌트_2.jpeg'}
+          src={cafeInfo.image_main}
           width={270}
           height={200}
           className="rounded-lg"
@@ -95,26 +94,26 @@ export default function Detail() {
       </picture>
 
       <section className="mt-10 rounded-lg p-4">
-        <h2 className="text-lg">카페 정보</h2>
+        <h2 className="text-lg font-extrabold">카페 정보</h2>
         <div className="h-[1px] w-full bg-white" />
         <ul className="mt-2 flex flex-col gap-1">
-          <li className="flexBetween" role="contentInfo">
-            <h3 className="font-bold">영업 시간 </h3>
-            <p>{cafeInfo.openingHours}</p>
+          <li className="cafeInfo" role="contentInfo">
+            <h3 className="cafeInfoKey">영업 시간 </h3>
+            <p className="cafeInfoValue">{cafeInfo.opening_hours}</p>
           </li>
 
-          <li className="flexBetween" role="contentInfo">
-            <h3 className="font-bold">카페 위치 </h3>
-            <p>{cafeInfo.location}</p>
+          <li className="cafeInfo" role="contentInfo">
+            <h3 className="cafeInfoKey">카페 위치 </h3>
+            <p className="cafeInfoValue">{cafeInfo.location}</p>
           </li>
 
-          <li className="flexBetween" role="contentInfo">
-            <h3 className="font-bold">연락처 </h3>
-            <p>{cafeInfo.contactNumber}</p>
+          <li className="cafeInfo" role="contentInfo">
+            <h3 className="cafeInfoKey">연락처 </h3>
+            <p className="cafeInfoValue">{cafeInfo.contact_number}</p>
           </li>
 
-          <li className="flexBetween" role="contentInfo">
-            <h3>
+          <li className="cafeInfo" role="contentInfo">
+            <h3 className="cafeInfoKey">
               <Image
                 src={'/icons/instagramSimple.svg'}
                 width={30}
@@ -123,17 +122,17 @@ export default function Detail() {
               />
             </h3>
             <Link
-              href={cafeInfo.sns}
-              className="underline underline-offset-[6px]"
+              href={cafeInfo.sns_account}
+              className="cafeInfoValue underline underline-offset-[6px]"
               target="_blank"
             >
-              인스타그램
+              {cafeInfo.sns_account}
             </Link>
           </li>
 
           <li className="mt-10">
             <Image
-              src={'/images/어반_멘.jpeg'}
+              src={cafeInfo.image_menu}
               alt="메뉴판"
               width={140}
               height={200}
