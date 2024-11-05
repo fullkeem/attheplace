@@ -8,7 +8,7 @@ export default function Myapp({ Component, pageProps }: AppProps) {
     <>
       <Script
         strategy="afterInteractive"
-        src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_MAP_KEY}`}
+        src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.MAP_KEY}`}
       ></Script>
       <RootLayout>
         <Component {...pageProps} />
