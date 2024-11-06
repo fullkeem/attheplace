@@ -67,7 +67,6 @@ export default function FindingCafe() {
 
     cafeFilterMutation.mutate(queryParams, {
       onSuccess: (data) => {
-        console.log('결과: ', data.cafes);
         setFilteredCafes(data.cafes);
         router.push('/map');
         setAnswers({});

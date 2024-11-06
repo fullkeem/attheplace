@@ -10,7 +10,6 @@ import ProfileImageModal from '../_components/ProfileImageModal';
 
 export default function Mypage() {
   const { userInfo } = useUserInfoStore();
-  console.log(userInfo.profile_image);
   const { isLoading } = useUserInfoQuery();
   const { mutate: updateProfileImage } = useUpdateProfileImage();
 

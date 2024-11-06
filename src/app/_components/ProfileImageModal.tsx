@@ -22,7 +22,6 @@ export default function ProfileImageModal({
       const file = e.target.files[0];
       setSelectedImage(file);
       setPreviewImage(URL.createObjectURL(file)); // 미리보기 설정
-      console.log('이미지: ', file);
     }
   };
 
