@@ -25,7 +25,7 @@ export default function CafeInfo({ cafe }: { cafe: UserLikeList }) {
         </div>
         <div>
           <Image
-            src={cafe.cafe_image}
+            src={cafe.cafe_image || '/images/attheplaceBg.webp'}
             alt="카페 이미지"
             className="rounded-md"
             width={80}
