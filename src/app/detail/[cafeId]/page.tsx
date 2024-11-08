@@ -3,18 +3,20 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect } from 'react';
+import StaticMap from '@/app/_components/StaticMap';
 import { fetchCafeDetail } from '@/app/api/cafeApi';
+import { useModalStore } from '@/app/store/modalStore';
 import { useRouter, useParams } from 'next/navigation';
 import { useCafeInfoStore } from '@/app/store/cafeStore';
 import { useUserInfoStore } from '@/app/store/authStore';
 import { useUserInfoQuery } from '@/app/hooks/useAuthQuery';
-import { useLikeToggleMutation } from '@/app/hooks/userLikeListQuery';
 import LoadingOverlay from '@/app/_components/LoadingOverlay';
-import StaticMap from '@/app/_components/StaticMap';
+import { useLikeToggleMutation } from '@/app/hooks/userLikeListQuery';
 
 export default function Detail() {
   const router = useRouter();
   const params = useParams(); // useParams를 사용하여 URL 파라미터를 가져옴
+  const { openModal, closeModal } = useModalStore();
   const { refetch } = useUserInfoQuery(); // 유저 정보를 최신 상태로 가져오는 쿼리
   const { userInfo } = useUserInfoStore();
   const toggleLikeMutation = useLikeToggleMutation();
@@ -47,6 +49,26 @@ export default function Detail() {
   // 좋아요 등록/취소
   const handleLikeToggle = () => {
     if (!cafeInfo) return;
+
+    if (!userInfo || !userInfo.nickname) {
+      openModal(
+        <div className="p-5">
+          <p className="text-black">로그인이 필요한 서비스입니다.</p>
+          <div className="flexBetween mt-6">
+            <button
+              onClick={() => {
+                closeModal();
+                router.push('/login');
+              }}
+              className="w-full rounded bg-blue-500 px-4 py-2 text-white"
+            >
+              확인
+            </button>
+          </div>
+        </div>
+      );
+      return;
+    }
     toggleLikeMutation.mutate(cafeInfo.id, {
       onSuccess: () => {
         refetch();
@@ -104,6 +126,8 @@ export default function Detail() {
             height={200}
             className="rounded-lg"
             alt="카페 대표사진"
+            priority
+            style={{ width: 'auto', height: 'auto' }}
           />
         </picture>
 
@@ -158,6 +182,8 @@ export default function Detail() {
               alt="메뉴판"
               width={140}
               height={200}
+              priority
+              style={{ width: 'auto', height: 'auto' }}
             />
             <StaticMap
               latitude={cafeInfo.latitude}

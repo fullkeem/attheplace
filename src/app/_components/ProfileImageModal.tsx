@@ -38,7 +38,7 @@ export default function ProfileImageModal({
       <div className="relative rounded-lg bg-white p-4 shadow-lg">
         <div className="relative h-40 w-40 overflow-hidden rounded-full">
           <Image
-            src={previewImage || '/images/default-profile.png'} // 미리보기 이미지
+            src={previewImage || '/images/coffee-bean.png'} // 미리보기 이미지
             alt="Profile Preview"
             fill
           />

@@ -30,3 +30,9 @@ export const fetchFilteringCafeData = async (queryParams: string) => {
   const response = await api.get(`/cafe/filter?${queryParams}`);
   return response.data;
 };
+
+// 모든 카페
+export const fetchAllCafes = async (): Promise<{ cafes: Cafe[] }> => {
+  const response = await api.get('/cafe/list');
+  return response.data;
+};

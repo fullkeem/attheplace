@@ -5,11 +5,15 @@ import Image from 'next/image';
 import classNames from 'classnames';
 import { useState } from 'react';
 import arrow from '/public/icons/menuArrow.svg';
+import { useCafeListStore } from '../store/cafeStore';
 import { useUserInfoStore } from '../store/authStore';
+import { useAllCafeQuery } from '../hooks/useCafeQuery';
 
 export default function Menu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { userInfo, clearUserInfo } = useUserInfoStore();
+  const { refetch } = useAllCafeQuery();
+  const { setFilteredCafes } = useCafeListStore();
   const isLoggin = !!userInfo.nickname;
 
   const toggleMenu = () => {
@@ -22,6 +26,19 @@ export default function Menu() {
     clearUserInfo();
     toggleMenu();
     window.location.href = '/';
+  };
+
+  // 전체 카페 리스트 데이터 요청
+  const handleMapClick = async () => {
+    try {
+      setIsMenuOpen((prevState) => !prevState);
+      const { data } = await refetch(); // Map 클릭 시 데이터 요청
+      if (data) {
+        setFilteredCafes(data.cafes); // 가져온 모든 카페 데이터를 filteredCafes에 저장
+      }
+    } catch (error) {
+      console.error('전체 카페 데이터를 가져오는 데 실패했습니다:', error);
+    }
   };
 
   // 메뉴가 열리고 닫히는 설정
@@ -106,7 +123,7 @@ export default function Menu() {
             </Link>
           </li>
           <li className="py-1">
-            <Link href="/map" onClick={toggleMenu} className="flexBetween">
+            <Link href="/map" onClick={handleMapClick} className="flexBetween">
               <div>Map</div>
               <Image src={arrow} alt="" aria-hidden />
             </Link>

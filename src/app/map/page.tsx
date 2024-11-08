@@ -5,6 +5,7 @@ import { useRef } from 'react';
 import { useMap } from '../hooks/useMap';
 import CafeCard from '../_components/CafeCard';
 import { Cafe, useCafeListStore } from '../store/cafeStore';
+import LoadingOverlay from '../_components/LoadingOverlay';
 
 export default function Map() {
   const { filteredCafes } = useCafeListStore();
@@ -54,6 +55,10 @@ export default function Map() {
       });
     }
   };
+
+  if (!filteredCafes) {
+    return <LoadingOverlay />;
+  }
 
   return (
     <div className="flexCenter relative h-full w-full">
