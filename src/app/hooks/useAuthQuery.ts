@@ -51,13 +51,21 @@ export const useLoginMutation = () => {
 export const useUserInfoQuery = () => {
   const { setUserInfo } = useUserInfoStore();
 
+  const token =
+    typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+
   return useQuery({
     queryKey: ['userInfo'],
     queryFn: async () => {
+      if (!token) {
+        return { nickname: '', profile_image: '', likeList: [] };
+      }
+
       const response = await fetchUserInfo();
       setUserInfo(response.userInfo);
       return response.userInfo;
     },
     staleTime: 1000 * 60 * 5,
+    enabled: !!token,
   });
 };

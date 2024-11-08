@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState } from 'react';
 import { faker } from '@faker-js/faker';
 import { useRouter } from 'next/navigation';
@@ -82,28 +83,38 @@ export default function Signup() {
   };
 
   return (
-    <form
-      className="mt-10 w-[300px] rounded-xl bg-[#353434]/70 p-10"
-      onSubmit={handleSubmit}
-    >
-      <fieldset className="flex flex-col gap-6 border-none">
-        <legend className="mb-10 w-full text-center text-lg font-bold text-white">
-          회원가입
-        </legend>
-
-        <SignupFormField
-          formData={formData}
-          errors={errors}
-          handleDataChange={handleDataChange}
-        />
-      </fieldset>
-
-      <button
-        type="submit"
-        className="mt-10 w-full rounded-lg bg-[#FF6347] py-3 text-white"
+    <div className="bgBox">
+      <Image
+        src={'/images/background/signup_bg.webp'}
+        className="bgImage"
+        alt=""
+        fill
+        priority
+        aria-hidden="true"
+      />
+      <form
+        className="mt-10 h-[550px] w-[300px] rounded-xl bg-[#353434]/70 p-10"
+        onSubmit={handleSubmit}
       >
-        가입하기
-      </button>
-    </form>
+        <fieldset className="flex flex-col gap-6 border-none">
+          <legend className="mb-10 w-full text-center text-lg font-bold text-white">
+            회원가입
+          </legend>
+
+          <SignupFormField
+            formData={formData}
+            errors={errors}
+            handleDataChange={handleDataChange}
+          />
+        </fieldset>
+
+        <button
+          type="submit"
+          className="mt-10 w-full rounded-lg bg-[#FF6347] py-3 text-white"
+        >
+          가입하기
+        </button>
+      </form>
+    </div>
   );
 }

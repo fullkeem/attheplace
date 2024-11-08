@@ -29,12 +29,12 @@ export const useAuthStore = create<AuthStore>((set) => ({
 
 /** 유저 정보 */
 export interface UserLikeList {
-  cafe_id: number;
-  cafe_name: string;
-  cafe_image: string;
-  opening_hours: string;
-  contact_number: string;
-  location_address: string;
+  cafe_id?: number;
+  cafe_name?: string;
+  cafe_image?: string;
+  opening_hours?: string;
+  contact_number?: string;
+  location_address?: string;
 }
 export interface UserInfo {
   nickname: string;

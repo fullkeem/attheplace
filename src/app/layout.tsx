@@ -1,9 +1,8 @@
 import './globals.css';
-import Link from 'next/link';
 import type { Metadata } from 'next';
-import Menu from './_components/NavMenu';
-import RandomBackground from './_components/RandomBackground';
+import Header from './_components/Header';
 import UseReactQuery from './hooks/UseReactQuey';
+import Modal from './_components/Modal';
 
 export const metadata: Metadata = {
   title: 'At The Place',
@@ -20,17 +19,12 @@ export default function RootLayout({
     <html lang="en">
       <body className="relative flex h-dvh flex-col">
         <UseReactQuery>
-          <RandomBackground />
-          <header className="flexCenter fixed z-10 w-full bg-[url('/images/blackBg.webp')] bg-cover bg-center bg-no-repeat px-10 py-5">
-            <h1 className="self-center font-serif text-xl leading-5 text-slate-200 underline underline-offset-2">
-              <Link href="/">AT THE PLACE</Link>
-            </h1>
-            <Menu />
-          </header>
-          <main className="mt-12 flex h-full flex-col items-center">
+          <Header />
+          <main className="flex min-h-screen flex-col items-center">
             {children}
           </main>
         </UseReactQuery>
+        <Modal />
       </body>
     </html>
   );

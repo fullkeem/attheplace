@@ -19,7 +19,7 @@ export default function ProgressBar({
   ];
 
   return (
-    <div className="mt-8 w-full">
+    <div className="w-full">
       <ul className="flex items-center justify-between">
         {progressEl.map((el, index) => (
           <li

@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import ProgressBar from '../_components/ProgressBar';
@@ -81,53 +82,63 @@ export default function FindingCafe() {
   const allAnswered = Object.keys(answers).length === questions.length;
 
   return (
-    <div className="flexCenter w-[300px] flex-col">
-      <ProgressBar
-        currentStep={currentStep}
-        handleStepClick={handleStepClick}
+    <div className="bgBox">
+      <Image
+        src={'/images/background/findingCafe_bg.webp'}
+        className="bgImage"
+        alt=""
+        fill
+        priority
+        aria-hidden="true"
       />
-      {questions.map(
-        (question) =>
-          currentStep === question.id && (
-            <div
-              key={question.id}
-              className="mt-20 flex h-96 flex-col items-center justify-between rounded-xl bg-[#353434]/70 p-10"
-            >
-              <h2 className="text-center text-xl font-extrabold">
-                {question.question}
-              </h2>
+      <div className="mt-5 flex w-[300px] flex-col">
+        <ProgressBar
+          currentStep={currentStep}
+          handleStepClick={handleStepClick}
+        />
+        {questions.map(
+          (question) =>
+            currentStep === question.id && (
+              <div
+                key={question.id}
+                className="mt-6 flex h-96 flex-col items-center justify-between rounded-xl bg-[#353434]/70 p-10"
+              >
+                <h2 className="text-center text-xl font-extrabold">
+                  {question.question}
+                </h2>
 
-              <div className="flex w-full flex-col gap-4">
-                <div className="buttonStyle mt-14">
-                  <button
-                    type="button"
-                    className="inline-block h-full w-full"
-                    onClick={() => handleAnswer(question.key, true)}
-                  >
-                    Yes
-                  </button>
-                </div>
-                <div className="buttonStyle">
-                  <button
-                    type="button"
-                    className="block h-full w-full"
-                    onClick={() => handleAnswer(question.key, false)}
-                  >
-                    No
-                  </button>
+                <div className="flex w-full flex-col gap-4">
+                  <div className="buttonStyle mt-14">
+                    <button
+                      type="button"
+                      className="inline-block h-full w-full"
+                      onClick={() => handleAnswer(question.key, true)}
+                    >
+                      Yes
+                    </button>
+                  </div>
+                  <div className="buttonStyle">
+                    <button
+                      type="button"
+                      className="block h-full w-full"
+                      onClick={() => handleAnswer(question.key, false)}
+                    >
+                      No
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          )
-      )}
-      {allAnswered && (
-        <button
-          onClick={handleSubmit}
-          className="mt-10 w-full rounded bg-orange-600 p-4 text-white"
-        >
-          결과 확인
-        </button>
-      )}
+            )
+        )}
+        {allAnswered && (
+          <button
+            onClick={handleSubmit}
+            className="mt-6 w-full rounded bg-orange-600 p-4 text-white"
+          >
+            결과 확인
+          </button>
+        )}
+      </div>
     </div>
   );
 }
