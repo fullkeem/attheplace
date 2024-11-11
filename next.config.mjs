@@ -5,19 +5,19 @@ const nextConfig = {
       {
         protocol: 'http',
         hostname: 'localhost',
-        port: '10010',
+        port: '3003',
         pathname: '/images/**',
       },
       {
         protocol: 'http',
         hostname: 'localhost',
-        port: '10010',
+        port: '3003',
         pathname: '/image/**',
       },
       {
         protocol: 'http',
         hostname: '127.0.0.1',
-        port: '10010',
+        port: '3003',
         pathname: '/image/**',
       },
       {

@@ -35,6 +35,10 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  .blur-2pxr {
+    filter: blur(2px);
+  }
 }
 
 .scrollbar-hide {
@@ -63,7 +67,7 @@ body {
 }
 
 .bgImage {
-  @apply absolute z-[-1] h-dvh w-full scale-110 object-cover blur-[2px];
+  @apply blur-2pxr absolute z-[-1] h-dvh w-full scale-110 object-cover;
 }
 
 .inputCommon {

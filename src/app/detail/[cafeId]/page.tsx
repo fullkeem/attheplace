@@ -60,7 +60,7 @@ export default function Detail() {
                 closeModal();
                 router.push('/login');
               }}
-              className="w-full rounded bg-blue-500 px-4 py-2 text-white"
+              className="w-full rounded bg-[#FF6347] px-4 py-2 text-white"
             >
               확인
             </button>
@@ -86,7 +86,7 @@ export default function Detail() {
       <div className="absolute inset-0 z-[-1] overflow-hidden">
         <Image
           src={cafeInfo.image_main}
-          className="scale-110 object-cover blur-[4px]"
+          className="blur-4pxr scale-110 object-cover"
           alt=""
           fill
           priority
@@ -131,9 +131,9 @@ export default function Detail() {
           />
         </picture>
 
-        <section className="mt-5 rounded-lg p-4">
+        <section className="mx-2 mt-5 rounded-lg bg-[#353434]/70 p-4">
           <h2 className="text-lg font-extrabold">카페 정보</h2>
-          <div className="h-[1px] w-full bg-white" />
+          <div className="h-1pxr w-full bg-white" />
           <ul className="mt-2 flex flex-col gap-1">
             <li className="cafeInfo" role="contentInfo">
               <h3 className="cafeInfoKey">영업 시간 </h3>
@@ -163,7 +163,7 @@ export default function Detail() {
               {cafeInfo.sns_account ? (
                 <Link
                   href={cafeInfo.sns_account}
-                  className="cafeInfoValue underline underline-offset-[6px]"
+                  className="cafeInfoValue underline-offset-6pxr underline"
                   target="_blank"
                 >
                   {cafeInfo.sns_account

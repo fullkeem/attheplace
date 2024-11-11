@@ -16,12 +16,12 @@ export default function CafeInfo({ cafe }: { cafe: UserLikeList }) {
       <div className="flexBetween p-2">
         <div className="flex flex-col gap-1 text-sm">
           <h3 className="font-bold">{cafe.cafe_name}</h3>
-          <div className="flex gap-[1px] text-[12px]">
+          <div className="gap-1pxr text-12pxr flex">
             <span>{cafe.opening_hours}</span>
             <span>ㅣ</span>
             <span>{cafe.contact_number}</span>
           </div>
-          <div className="text-[12px]">{cafe.location_address}</div>
+          <div className="text-12pxr">{cafe.location_address}</div>
         </div>
         <div>
           <Image

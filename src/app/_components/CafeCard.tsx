@@ -12,29 +12,28 @@ const CafeCard = forwardRef<HTMLLIElement, CafeCardProps>(({ cafe }, ref) => {
     <li
       key={cafe.id}
       ref={ref}
-      className="h-32 min-w-[220px] flex-none rounded-lg bg-white p-4 shadow-lg"
+      className="min-w-220pxr h-32 flex-none rounded-lg bg-white hover:shadow-lg"
     >
       <Link
         href={`/detail/${cafe.id}`}
-        className="flex cursor-pointer flex-row transition-shadow hover:shadow-lg"
+        className="flex cursor-pointer flex-row p-4 transition-shadow"
       >
-        <div className="max-w-40 flex-grow">
-          <h3 className="mt-2 text-lg font-bold text-gray-500">
-            {cafe.cafe_name}
-          </h3>
+        <div className="flex max-w-40 flex-grow flex-col gap-1">
+          <h3 className="text-md font-bold text-gray-500">{cafe.cafe_name}</h3>
           <p className="text-sm text-gray-500">{cafe.opening_hours}</p>
           <p className="text-sm text-gray-500">{cafe.contact_number}</p>
           <p className="truncate text-sm text-gray-500">
             {cafe.location_address}
           </p>
         </div>
-        <Image
-          src={cafe.image_main}
-          alt={`${cafe.cafe_name} 이미지`}
-          width={80}
-          height={60}
-          className="rounded-md object-cover"
-        />
+        <div className="relative h-24 w-24">
+          <Image
+            src={cafe.image_main}
+            alt={`${cafe.cafe_name} 이미지`}
+            fill
+            className="block rounded-md object-cover"
+          />
+        </div>
       </Link>
     </li>
   );

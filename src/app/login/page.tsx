@@ -41,7 +41,7 @@ export default function Login() {
         priority
         aria-hidden="true"
       />
-      <div className="mt-10 flex h-[500px] w-[300px] flex-col rounded-xl bg-[#353434]/75 p-10">
+      <div className="h-500pxr w-300pxr mt-10 flex flex-col rounded-xl bg-[#353434]/75 p-10">
         <div className="mb-8 text-center">
           <h2 className="text-lg font-semibold text-white">로그인</h2>
         </div>

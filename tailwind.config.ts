@@ -1,4 +1,15 @@
 import type { Config } from 'tailwindcss';
+import { range } from 'lodash';
+
+const pxToRem = (px: number, base = 16) => `${px / base}rem`;
+
+const pxToRemFunc = (start: number, end: number) => {
+  // acc의 타입을 Record<string, string>으로 지정
+  return range(start, end).reduce<Record<string, string>>((acc, px) => {
+    acc[`${px}pxr`] = pxToRem(px);
+    return acc;
+  }, {});
+};
 
 const config: Config = {
   content: [
@@ -7,10 +18,22 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    screens: {
+      mobile: '375px',
+      desktop: '1024px',
+    },
     extend: {
-      screens: {
-        mobile: '375px',
-        desktop: '1024px',
+      spacing: {
+        ...pxToRemFunc(0, 1000),
+      },
+      inset: {
+        ...pxToRemFunc(0, 1000),
+      },
+      fontSize: {
+        ...pxToRemFunc(0, 1000),
+      },
+      lineHeight: {
+        ...pxToRemFunc(0, 1000),
       },
       backgroundImage: {
         'custom-gradient':

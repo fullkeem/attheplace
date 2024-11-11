@@ -41,7 +41,7 @@ export default function ProgressBar({
             {index < progressEl.length - 1 && (
               <div
                 className={classNames(
-                  'absolute left-[30px] top-[11px] h-3 w-20 transition-all duration-500',
+                  'left-30pxr top-11pxr absolute h-3 w-20 transition-all duration-500',
                   {
                     'bg-orange-500': currentStep > el.id,
                     'bg-slate-400': currentStep <= el.id,

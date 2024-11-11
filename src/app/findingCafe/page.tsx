@@ -91,7 +91,7 @@ export default function FindingCafe() {
         priority
         aria-hidden="true"
       />
-      <div className="mt-5 flex w-[300px] flex-col">
+      <div className="w-300pxr mt-5 flex flex-col">
         <ProgressBar
           currentStep={currentStep}
           handleStepClick={handleStepClick}

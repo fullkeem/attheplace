@@ -2,8 +2,10 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import { AxiosError } from 'axios';
 import { faker } from '@faker-js/faker';
 import { useRouter } from 'next/navigation';
+import { useModalStore } from '../store/modalStore';
 import { useSignupMutation } from '../hooks/useAuthQuery';
 import SignupFormField from '../_components/SignupFormField';
 import { handleError, SignupError } from '../utils/errorHandler';
@@ -23,6 +25,7 @@ interface SignupFormData {
 
 export default function Signup() {
   const router = useRouter();
+  const { openModal, closeModal } = useModalStore();
   const [formData, setFormData] = useState<SignupFormData>({
     email: '',
     password: '',
@@ -39,6 +42,29 @@ export default function Signup() {
   });
 
   const { mutate: signupMutate } = useSignupMutation();
+
+  // 회원가입 성공 시 모달창
+  const openSignupModal = () => {
+    openModal(
+      <div className="p-5">
+        <p className="text-center font-semibold text-black">
+          At the Place의 회원이 되신 걸 <br />
+          환영합니다!
+        </p>
+        <div className="flexBetween mt-6">
+          <button
+            onClick={() => {
+              closeModal();
+              router.push('/login'); // 로그인 페이지로 이동
+            }}
+            className="w-full rounded bg-[#FF6347] px-4 py-2 text-white"
+          >
+            확인
+          </button>
+        </div>
+      </div>
+    );
+  };
 
   // 입력값 저장
   const handleDataChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,10 +98,13 @@ export default function Signup() {
 
       signupMutate(formData, {
         onSuccess: () => {
-          router.push('/');
+          openSignupModal();
         },
-        onError: (error: any) => {
-          const errorMessage = error.response?.data;
+        onError: (error: AxiosError) => {
+          const errorMessage =
+            typeof error.response?.data === 'string'
+              ? error.response.data
+              : 'Unknown error';
           handleError(errorMessage, setErrors);
         },
       });
@@ -93,7 +122,7 @@ export default function Signup() {
         aria-hidden="true"
       />
       <form
-        className="mt-10 h-[550px] w-[300px] rounded-xl bg-[#353434]/70 p-10"
+        className="h-550pxr w-300pxr mt-10 rounded-xl bg-[#353434]/70 p-10"
         onSubmit={handleSubmit}
       >
         <fieldset className="flex flex-col gap-6 border-none">
