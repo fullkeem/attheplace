@@ -15,6 +15,12 @@ const nextConfig = {
         pathname: '/image/**',
       },
       {
+        protocol: 'http',
+        hostname: '127.0.0.1',
+        port: '10010',
+        pathname: '/image/**',
+      },
+      {
         protocol: 'https',
         hostname: 'avatars.githubusercontent.com',
         port: '',
