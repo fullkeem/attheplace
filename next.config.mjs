@@ -32,6 +32,11 @@ const nextConfig = {
         port: '',
         pathname: '/map-static/v2/raster',
       },
+      {
+        protocol: 'https',
+        hostname: 'myattheplacebucket.s3.ap-northeast-2.amazonaws.com',
+        pathname: '/**',
+      },
     ],
   },
 };
