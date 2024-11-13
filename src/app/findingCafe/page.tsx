@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useModalStore } from '../store/modalStore';
 import ProgressBar from '../_components/ProgressBar';
 import { useCafeFilterQuery } from '../hooks/useCafeQuery';
 import { useProgressBarStore, useCafeListStore } from '../store/cafeStore';
@@ -39,11 +40,12 @@ interface Answers {
 
 export default function FindingCafe() {
   const router = useRouter();
+  const { setFilteredCafes } = useCafeListStore();
+  const cafeFilterMutation = useCafeFilterQuery();
+  const { openModal, closeModal } = useModalStore();
+  const [answers, setAnswers] = useState<Answers>({});
   const currentStep = useProgressBarStore((state) => state.currentStep);
   const setCurrentStep = useProgressBarStore((state) => state.setCurrentStep);
-  const { setFilteredCafes } = useCafeListStore();
-  const [answers, setAnswers] = useState<Answers>({});
-  const cafeFilterMutation = useCafeFilterQuery();
 
   const handleAnswer = (key: string, value: boolean) => {
     setAnswers((prev) => ({ ...prev, [key]: value }));
@@ -68,13 +70,36 @@ export default function FindingCafe() {
 
     cafeFilterMutation.mutate(queryParams, {
       onSuccess: (data) => {
+        console.log('성공 시: ', data.cafes);
         setFilteredCafes(data.cafes);
         router.push('/map');
         setAnswers({});
         setCurrentStep(1);
       },
       onError: (error) => {
-        console.error('에러 발생', error);
+        if (error.message.includes('404')) {
+          openModal(
+            <div className="p-2">
+              <p className="text-center text-sm leading-5 text-gray-500">
+                고르신 키워드에 해당되는 카페가 없습니다..😿
+                <br />
+                빠른 시일내에 준비하겠습니다!
+              </p>
+              <button
+                onClick={() => {
+                  closeModal();
+                  setAnswers({});
+                  setCurrentStep(1);
+                }}
+                className="mt-4 w-full rounded bg-[#FF6347] px-4 py-2 text-white"
+              >
+                확인
+              </button>
+            </div>
+          );
+        } else {
+          console.error('에러 발생', error);
+        }
       },
     });
   };
@@ -91,7 +116,7 @@ export default function FindingCafe() {
         priority
         aria-hidden="true"
       />
-      <div className="w-300pxr mt-5 flex flex-col">
+      <div className="mt-5 flex w-300pxr flex-col">
         <ProgressBar
           currentStep={currentStep}
           handleStepClick={handleStepClick}

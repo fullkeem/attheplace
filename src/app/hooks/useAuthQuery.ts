@@ -35,7 +35,6 @@ export const useLoginMutation = () => {
       // 사용자 정보 가져오기
       const response = await fetchUserInfo();
       setUserInfo(response.userInfo);
-      alert('login success!');
       clearLoginData();
     },
     onError: (error) => {

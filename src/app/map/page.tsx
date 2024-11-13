@@ -56,7 +56,9 @@ export default function Map() {
     }
   };
 
-  if (!filteredCafes) {
+  const cafeImage = filteredCafes.map((data) => data.image_main);
+
+  if (!cafeImage) {
     return <LoadingOverlay />;
   }
 

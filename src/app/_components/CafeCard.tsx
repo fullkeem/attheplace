@@ -12,13 +12,13 @@ const CafeCard = forwardRef<HTMLLIElement, CafeCardProps>(({ cafe }, ref) => {
     <li
       key={cafe.id}
       ref={ref}
-      className="min-w-220pxr h-32 flex-none rounded-lg bg-white hover:shadow-lg"
+      className="h-32 min-w-220pxr flex-none rounded-lg bg-white hover:shadow-lg"
     >
       <Link
         href={`/detail/${cafe.id}`}
-        className="flex cursor-pointer flex-row p-4 transition-shadow"
+        className="flex cursor-pointer flex-row gap-2 p-4 transition-shadow"
       >
-        <div className="flex max-w-40 flex-grow flex-col gap-1">
+        <div className="flex max-w-40 flex-grow flex-col gap-3pxr">
           <h3 className="text-md font-bold text-gray-500">{cafe.cafe_name}</h3>
           <p className="text-sm text-gray-500">{cafe.opening_hours}</p>
           <p className="text-sm text-gray-500">{cafe.contact_number}</p>

@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div className="bgBox">
       <Image
-        src={'/images/background/home_bg.webp'}
+        src={'/images/background/background_6.webp'}
         className="bgImage"
         alt=""
         fill
