@@ -12,6 +12,7 @@ import { useAllCafeQuery } from '../hooks/useCafeQuery';
 export default function Menu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { userInfo, clearUserInfo } = useUserInfoStore();
+  console.log(userInfo);
   const { refetch } = useAllCafeQuery();
   const { setFilteredCafes } = useCafeListStore();
   const isLoggin = !!userInfo.nickname;
@@ -43,7 +44,7 @@ export default function Menu() {
 
   // 메뉴가 열리고 닫히는 설정
   const menuClasses = classNames(
-    "fixed top-0 right-0 w-10/12 h-full z-40 transform transition-transform duration-300 bg-[url('/images/blackBg.webp')] bg-cover bg-center",
+    "fixed top-0 right-0 w-6/12 h-full z-40 transform transition-transform duration-300 bg-[url('/images/blackBg.webp')] bg-cover bg-center",
     {
       'translate-x-0': isMenuOpen,
       'translate-x-full': !isMenuOpen,
@@ -61,10 +62,31 @@ export default function Menu() {
         <button className="absolute right-6 top-6" onClick={toggleMenu}>
           X
         </button>
-        <ul className="mt-14 flex flex-col gap-7 p-6">
+        <ul className="mt-14 flex flex-col gap-5 p-6">
           {isLoggin ? (
             // 로그인 상태일 때
             <>
+              <li className="my-2 py-1">
+                <div className="flex items-center gap-3">
+                  <div className="flexCenter relative h-14 w-14 rounded-full bg-white p-3">
+                    <Image
+                      src={userInfo.profile_image}
+                      alt="프로필 이미지"
+                      fill
+                      className="rounded-full"
+                      objectFit="cover"
+                    />
+                  </div>
+
+                  <div>
+                    <p>반갑습니다!</p>
+                    <div>
+                      <strong>{userInfo.nickname}</strong> 님
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-5pxr w-full border border-gray-200" />
+              </li>
               <li className="py-1">
                 <Link
                   href={'/mypage'}

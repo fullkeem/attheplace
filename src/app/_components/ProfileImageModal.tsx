@@ -36,9 +36,9 @@ export default function ProfileImageModal({
   return (
     <div className="flexCenter fixed inset-0 z-50 bg-black bg-opacity-50">
       <div className="relative rounded-lg bg-white p-4 shadow-lg">
-        <div className="relative h-40 w-40 overflow-hidden rounded-full">
+        <div className="flexCenter relative h-40 w-40 overflow-hidden rounded-full">
           <Image
-            src={previewImage || '/images/coffee-bean.png'} // 미리보기 이미지
+            src={previewImage || '/images/attheplaceBg.webp'} // 미리보기 이미지
             alt="Profile Preview"
             fill
           />
@@ -60,7 +60,7 @@ export default function ProfileImageModal({
         <div className="mt-4 flex justify-center gap-4">
           <button
             onClick={handleUploadClick}
-            className="rounded bg-blue-500 px-4 py-2 text-white"
+            className="rounded bg-[#FF6347] px-4 py-2 text-white"
           >
             예
           </button>
