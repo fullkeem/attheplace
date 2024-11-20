@@ -3,23 +3,40 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import classNames from 'classnames';
-import { useState } from 'react';
 import arrow from '/public/icons/menuArrow.svg';
+import { useState, useRef, useEffect } from 'react';
 import { useCafeListStore } from '../store/cafeStore';
 import { useUserInfoStore } from '../store/authStore';
 import { useAllCafeQuery } from '../hooks/useCafeQuery';
 
 export default function Menu() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { userInfo, clearUserInfo } = useUserInfoStore();
-  console.log(userInfo);
   const { refetch } = useAllCafeQuery();
   const { setFilteredCafes } = useCafeListStore();
+  const menuRef = useRef<HTMLDivElement | null>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { userInfo, clearUserInfo } = useUserInfoStore();
   const isLoggin = !!userInfo.nickname;
 
   const toggleMenu = () => {
     setIsMenuOpen((prevState) => !prevState);
   };
+
+  const handleOutsideClick = (event: MouseEvent) => {
+    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setIsMenuOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.addEventListener('mousedown', handleOutsideClick); // 클릭 이벤트 추가
+    } else {
+      document.removeEventListener('mousedown', handleOutsideClick); // 클릭 이벤트 제거
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [isMenuOpen]);
 
   // 로그아웃 함수
   const handleLogout = () => {
@@ -58,7 +75,7 @@ export default function Menu() {
       </button>
 
       {/* 네비게이션 메뉴 */}
-      <nav className={menuClasses}>
+      <nav className={menuClasses} ref={menuRef}>
         <button className="absolute right-6 top-6" onClick={toggleMenu}>
           X
         </button>
