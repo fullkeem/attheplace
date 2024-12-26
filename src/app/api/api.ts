@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://attheplace.store:3003',
+  baseURL: 'https://attheplace.store',
   headers: {
     'Content-Type': 'application/json',
   },
