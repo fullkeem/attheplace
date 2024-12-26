@@ -1,19 +1,17 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://attheplace.store',
+  baseURL: 'http://attheplace.store:3003',
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
 api.interceptors.request.use(
-  (config: any) => {
+  (config) => {
     const token = localStorage.getItem('token');
-    if (!config.headers.Authorization) {
-      config.headers = {
-        Authorization: token,
-      };
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },

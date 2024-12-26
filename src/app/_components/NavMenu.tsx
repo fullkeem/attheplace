@@ -15,8 +15,7 @@ export default function Menu() {
   const menuRef = useRef<HTMLDivElement | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { userInfo, clearUserInfo } = useUserInfoStore();
-  const isLoggin = !!userInfo.nickname;
-
+  const [isLoggin, setIsLoggin] = useState<boolean>(false);
   const toggleMenu = () => {
     setIsMenuOpen((prevState) => !prevState);
   };
@@ -37,6 +36,12 @@ export default function Menu() {
       document.removeEventListener('mousedown', handleOutsideClick);
     };
   }, [isMenuOpen]);
+
+  // localstorage의 token 확인
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggin(!!token);
+  }, []);
 
   // 로그아웃 함수
   const handleLogout = () => {
