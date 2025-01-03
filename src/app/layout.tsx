@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description:
     '사용자의 카페 취향을 조사해 딱 맞는 장소를 찾아주는 플랫폼입니다.',
   keywords: '카페 추천, 맞춤형 카페, 주차 가능한 카페, 분위기 좋은 카페',
-  authors: [{ name: 'At The Place', url: 'https://attheplace.store' }],
+  authors: [{ name: 'At The Place', url: 'https://attheplace.vercel.app' }],
   openGraph: {
     type: 'website',
     url: 'https://attheplace.vercel.app',
@@ -18,8 +18,8 @@ export const metadata: Metadata = {
       '사용자의 취향에 맞는 카페를 찾아주는 플랫폼입니다. 다양한 조건을 바탕으로 최적의 장소를 추천합니다.',
     images: [
       {
-        url: '/public/icons/attheplaceLogo.svg',
-        width: 1200,
+        url: 'https://attheplace.vercel.app/icons/attheplaceLogo.svg',
+        width: 630,
         height: 630,
         alt: 'At The Place',
       },
