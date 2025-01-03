@@ -39,7 +39,7 @@ export default function KaKaoRedirect() {
     };
 
     handleKakaoAuth();
-  }, []);
+  }, [router, setUserInfo]);
 
   return <div>카카오 인증 중...</div>;
 }

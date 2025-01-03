@@ -92,7 +92,7 @@ export default function Menu() {
                 <div className="flex items-center gap-3">
                   <div className="flexCenter relative h-14 w-14 rounded-full bg-white p-3">
                     <Image
-                      src={userInfo.profile_image}
+                      src={userInfo?.profile_image}
                       alt="프로필 이미지"
                       fill
                       className="rounded-full"

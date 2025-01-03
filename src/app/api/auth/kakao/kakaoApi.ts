@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const kakaoApiClient = axios.create({
-  baseURL: 'http://localhost:3003',
+  baseURL: 'https://attheplace.store',
   headers: {
     'Content-Type': 'application/json',
   },

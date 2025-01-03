@@ -1,4 +1,3 @@
-// src/hooks/useMap.ts
 import { useEffect } from 'react';
 import { Cafe } from '../store/cafeStore';
 
