@@ -7,26 +7,19 @@ import { useUserInfoQuery } from '../hooks/useAuthQuery';
 import { useUserInfoStore, UserLikeList } from '../store/authStore';
 import { useUpdateProfileImage } from '../hooks/useProfileImageQuery';
 import ProfileImageModal from '../_components/ProfileImageModal';
+import defaulProfile from '/public/images/defaultProfile.png';
 
 export default function Mypage() {
   const { userInfo } = useUserInfoStore();
-  const { isLoading } = useUserInfoQuery();
+  const { isFetching } = useUserInfoQuery();
   const { mutate: updateProfileImage } = useUpdateProfileImage();
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
 
-  const handleImageUpload = (file: File) => {
-    updateProfileImage(file);
-    closeModal();
-  };
-
-  if (!userInfo || isLoading) {
+  if (isFetching) {
     return <div>Loading...</div>;
   }
 
-  const validLikeList = userInfo.likeList.filter(
+  const validLikeList = userInfo?.likeList.filter(
     (cafe) => cafe.cafe_id !== null && cafe.cafe_image !== null
   );
 
@@ -39,16 +32,19 @@ export default function Mypage() {
         fill
         priority
         aria-hidden="true"
+        sizes="(max-width: 768px) 100vw,
+          (max-width: 1200px) 50vw,
+          33vw"
       />
       <div className="mt-7 flex w-8/12 flex-col">
         {/* 프로필 이미지 및 유저 이름 */}
         <div className="flex flex-col items-center gap-3">
           <div
-            onClick={openModal}
+            onClick={() => setIsModalOpen(true)}
             className="relative h-24 w-24 cursor-pointer"
           >
             <Image
-              src={userInfo?.profile_image}
+              src={userInfo?.profile_image || defaulProfile}
               alt="Profile Image"
               sizes=""
               fill
@@ -65,7 +61,7 @@ export default function Mypage() {
           <div className="w-full border" />
           <ul>
             {validLikeList.length > 0 ? (
-              userInfo?.likeList.map((cafe: UserLikeList) => (
+              validLikeList.map((cafe: UserLikeList) => (
                 <CafeInfo cafe={cafe} key={cafe.cafe_id} />
               ))
             ) : (
@@ -77,8 +73,11 @@ export default function Mypage() {
         {/* 모달창 */}
         <ProfileImageModal
           isOpen={isModalOpen}
-          onClose={closeModal}
-          onUpload={handleImageUpload}
+          onClose={() => setIsModalOpen(false)}
+          onUpload={(file) => {
+            updateProfileImage(file);
+            setIsModalOpen(false);
+          }}
         />
       </div>
     </div>

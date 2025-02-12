@@ -20,7 +20,6 @@ export default function KaKaoRedirect() {
 
       try {
         const data = await kakaoLogin(code); // 카카오 로그인 API 호출
-        console.log(data);
         if (data) {
           localStorage.setItem('token', data.token); // 토큰 저장
 

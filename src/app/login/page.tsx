@@ -25,7 +25,9 @@ export default function Login() {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     loginMutation.mutate(loginData, {
-      onSuccess: () => router.push('/'),
+      onSuccess: () => {
+        router.push('/');
+      },
       onError: () => {
         setErrorMessage('아이디 또는 비밀번호가 잘못되었습니다.');
       },

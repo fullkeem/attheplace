@@ -1,5 +1,5 @@
-import type { Config } from 'tailwindcss';
 import { range } from 'lodash';
+import type { Config } from 'tailwindcss';
 
 const pxToRem = (px: number, base = 16) => `${px / base}rem`;
 

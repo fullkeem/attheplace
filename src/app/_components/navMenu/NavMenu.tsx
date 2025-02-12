@@ -2,20 +2,28 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { useState, useRef, useEffect } from 'react';
 import classNames from 'classnames';
 import arrow from '/public/icons/menuArrow.svg';
-import { useState, useRef, useEffect } from 'react';
-import { useCafeListStore } from '../store/cafeStore';
-import { useUserInfoStore } from '../store/authStore';
-import { useAllCafeQuery } from '../hooks/useCafeQuery';
+import { useCafeListStore } from '@/app/store/cafeStore';
+import { useUserInfoStore } from '@/app/store/authStore';
+import { useAllCafeQuery } from '@/app/hooks/useCafeQuery';
 
 export default function Menu() {
   const { refetch } = useAllCafeQuery();
-  const { setFilteredCafes } = useCafeListStore();
+
   const menuRef = useRef<HTMLDivElement | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { userInfo, clearUserInfo } = useUserInfoStore();
-  const [isLoggin, setIsLoggin] = useState<boolean>(false);
+
+  const { setFilteredCafes } = useCafeListStore();
+  const nickname = useUserInfoStore((state) => state.userInfo.nickname);
+  const profile_image = useUserInfoStore(
+    (state) => state.userInfo.profile_image
+  );
+  const clearUserInfo = useUserInfoStore((state) => state.clearUserInfo);
+
+  const isLoggin = !!nickname;
+
   const toggleMenu = () => {
     setIsMenuOpen((prevState) => !prevState);
   };
@@ -37,12 +45,6 @@ export default function Menu() {
     };
   }, [isMenuOpen]);
 
-  // localstorage의 token 확인
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    setIsLoggin(!!token);
-  }, []);
-
   // 로그아웃 함수
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -54,7 +56,7 @@ export default function Menu() {
   // 전체 카페 리스트 데이터 요청
   const handleMapClick = async () => {
     try {
-      setIsMenuOpen((prevState) => !prevState);
+      setIsMenuOpen(false);
       const { data } = await refetch(); // Map 클릭 시 데이터 요청
       if (data) {
         setFilteredCafes(data.cafes); // 가져온 모든 카페 데이터를 filteredCafes에 저장
@@ -66,7 +68,7 @@ export default function Menu() {
 
   // 메뉴가 열리고 닫히는 설정
   const menuClasses = classNames(
-    "fixed top-0 right-0 w-6/12 h-full z-40 transform transition-transform duration-300 bg-[url('/images/blackBg.webp')] bg-cover bg-center",
+    "fixed top-0 right-0 w-1/3 h-full z-40 transform transition-transform duration-300 bg-[url('/images/blackBg.webp')] bg-cover bg-center",
     {
       'translate-x-0': isMenuOpen,
       'translate-x-full': !isMenuOpen,
@@ -92,18 +94,20 @@ export default function Menu() {
                 <div className="flex items-center gap-3">
                   <div className="flexCenter relative h-14 w-14 rounded-full bg-white p-3">
                     <Image
-                      src={userInfo?.profile_image}
+                      src={profile_image}
                       alt="프로필 이미지"
                       fill
                       className="rounded-full"
-                      objectFit="cover"
+                      sizes="(max-width: 768px) 100vw,
+          (max-width: 1200px) 50vw,
+          33vw"
                     />
                   </div>
 
                   <div>
                     <p>반갑습니다!</p>
                     <div>
-                      <strong>{userInfo.nickname}</strong> 님
+                      <strong>{nickname}</strong> 님
                     </div>
                   </div>
                 </div>

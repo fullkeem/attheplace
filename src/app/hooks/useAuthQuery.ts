@@ -45,12 +45,10 @@ export const useLoginMutation = () => {
 
 // 유저 정보 Query 훅
 export const useUserInfoQuery = () => {
-  const { setUserInfo } = useUserInfoStore();
-
   const token =
     typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
-  return useQuery({
+  const query = useQuery({
     queryKey: ['userInfo'],
     queryFn: async () => {
       if (!token) {
@@ -58,10 +56,10 @@ export const useUserInfoQuery = () => {
       }
 
       const response = await fetchUserInfo();
-      setUserInfo(response.userInfo);
       return response.userInfo;
     },
-    staleTime: 1000 * 60 * 5,
     enabled: !!token,
+    staleTime: 1000 * 60 * 5,
   });
+  return query;
 };

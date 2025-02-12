@@ -122,7 +122,7 @@ export default function Signup() {
         aria-hidden="true"
       />
       <form
-        className="h-550pxr w-300pxr mt-10 rounded-xl bg-[#353434]/70 p-10"
+        className="mt-10 h-550pxr w-300pxr rounded-xl bg-[#353434]/70 p-10"
         onSubmit={handleSubmit}
       >
         <fieldset className="flex flex-col gap-6 border-none">
