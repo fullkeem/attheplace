@@ -121,21 +121,26 @@ export default function Detail() {
                   'X'
                 )}
               </li>
+              <li className="cafeInfo" role="contentInfo">
+                <h3 className="cafeInfoKey">연락처 </h3>
+                <p className="cafeInfoValue">
+                  <StaticMap
+                    latitude={cafeInfo.latitude}
+                    longitude={cafeInfo.longitude}
+                  />
+                </p>
+              </li>
             </ul>
 
-            <div className="flexBetween mt-5 gap-4">
-              <Image
+            <div className="flexCenter mt-5 gap-4">
+              {/* <Image
                 src={cafeInfo.image_menu}
                 alt="메뉴판"
                 width={140}
                 height={200}
                 priority
                 style={{ width: '300', height: 'aut0' }}
-              />
-              <StaticMap
-                latitude={cafeInfo.latitude}
-                longitude={cafeInfo.longitude}
-              />
+              /> */}
             </div>
           </section>
         </div>

@@ -1,9 +1,8 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import Header from './_components/Header';
-import UseReactQuery from './hooks/UseReactQuey';
 import Modal from './_components/Modal';
-import Script from 'next/script';
+import UseReactQuery from './hooks/UseReactQuey';
 
 export const metadata: Metadata = {
   title: 'At The Place',
@@ -34,19 +33,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <Script
-        strategy="afterInteractive"
-        src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NAVER_MAP_KEY}`}
-      ></Script>
+    <html lang="ko">
       <body className="relative mx-auto flex h-dvh min-w-360pxr max-w-[1280px] flex-col">
         <UseReactQuery>
           <Header />
           <main className="flex min-h-screen flex-col items-center">
             {children}
           </main>
+          <Modal />
         </UseReactQuery>
-        <Modal />
       </body>
     </html>
   );

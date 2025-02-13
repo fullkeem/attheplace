@@ -2,11 +2,14 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+
 import { LoginForm } from '../api/authApi';
 import { useAuthStore } from '../store/authStore';
 import { useLoginMutation } from '../hooks/useAuthQuery';
+
 import KakaoLogin from '../_components/KakaoLogin';
 
 export default function Login() {
@@ -59,7 +62,7 @@ export default function Login() {
               id="email"
               value={loginData.email}
               onChange={handleChange}
-              className="inputCommon w-full"
+              className="inputCommon"
               placeholder="아이디(이메일) 입력"
               required
             />
@@ -73,7 +76,8 @@ export default function Login() {
               id="password"
               value={loginData.password}
               onChange={handleChange}
-              className="inputCommon w-full"
+              autoComplete="off"
+              className="inputCommon"
               placeholder="비밀번호 입력"
               required
             />
@@ -85,9 +89,9 @@ export default function Login() {
           <div className="mb-4 mt-6">
             <button
               type="submit"
-              className="w-full rounded-sm bg-[#FF6347] py-3 font-semibold text-white"
+              className="bg-confirmColor w-full rounded-sm py-3 font-semibold text-white"
             >
-              {loginMutation.isPending ? '로그인 중...' : '로그인'}
+              로그인
             </button>
           </div>
           <div className="my-2">

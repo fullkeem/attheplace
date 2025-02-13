@@ -44,6 +44,7 @@ const config: Config = {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
+        confirmColor: '#FF6347',
       },
       fontFamily: {
         sans: ['var(--font-inria)', 'sans-serif'],

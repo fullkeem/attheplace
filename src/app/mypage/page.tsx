@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import CafeInfo from '@/app/_components/CafeInfo';
-import { useUserInfoQuery } from '../hooks/useAuthQuery';
 import { useUserInfoStore, UserLikeList } from '../store/authStore';
 import { useUpdateProfileImage } from '../hooks/useProfileImageQuery';
 import ProfileImageModal from '../_components/ProfileImageModal';
@@ -11,13 +10,8 @@ import defaulProfile from '/public/images/defaultProfile.png';
 
 export default function Mypage() {
   const { userInfo } = useUserInfoStore();
-  const { isFetching } = useUserInfoQuery();
   const { mutate: updateProfileImage } = useUpdateProfileImage();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  if (isFetching) {
-    return <div>Loading...</div>;
-  }
 
   const validLikeList = userInfo?.likeList.filter(
     (cafe) => cafe.cafe_id !== null && cafe.cafe_image !== null
@@ -51,7 +45,7 @@ export default function Mypage() {
               className="rounded-full"
             />
           </div>
-          <strong>{userInfo?.nickname || '유저 이름'}</strong>{' '}
+          <strong>{userInfo?.nickname || '유저 이름'}</strong>
           {/* 유저 닉네임 */}
         </div>
 

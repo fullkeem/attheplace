@@ -53,7 +53,15 @@ export const useUserInfoStore = create<UserStore>()(
   persist(
     (set) => ({
       userInfo: { nickname: '', profile_image: '', likeList: [] },
-      setUserInfo: (user) => set({ userInfo: user }),
+
+      setUserInfo: (patrialUser) =>
+        set((state) => ({
+          userInfo: {
+            ...state.userInfo,
+            ...patrialUser,
+          },
+        })),
+
       addLikeList: (cafe) =>
         set((state) => ({
           userInfo: {
@@ -61,6 +69,7 @@ export const useUserInfoStore = create<UserStore>()(
             likeList: [...state.userInfo.likeList, cafe],
           },
         })),
+
       removeLikeList: (id) =>
         set((state) => ({
           userInfo: {
@@ -70,6 +79,7 @@ export const useUserInfoStore = create<UserStore>()(
             ),
           },
         })),
+
       clearUserInfo: () =>
         set({ userInfo: { nickname: '', profile_image: '', likeList: [] } }),
     }),

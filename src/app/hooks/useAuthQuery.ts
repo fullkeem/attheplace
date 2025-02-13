@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { AxiosError } from 'axios';
 import { useAuthStore } from '../store/authStore';
 import { useUserInfoStore } from '../store/authStore';
@@ -45,6 +46,7 @@ export const useLoginMutation = () => {
 
 // 유저 정보 Query 훅
 export const useUserInfoQuery = () => {
+  const { setUserInfo } = useUserInfoStore();
   const token =
     typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
@@ -56,10 +58,18 @@ export const useUserInfoQuery = () => {
       }
 
       const response = await fetchUserInfo();
+      console.log(response.userInfo);
       return response.userInfo;
     },
     enabled: !!token,
     staleTime: 1000 * 60 * 5,
   });
+
+  useEffect(() => {
+    if (query.isSuccess && query.data) {
+      setUserInfo(query.data);
+    }
+  }, [query.isSuccess, query.data, setUserInfo]);
+
   return query;
 };

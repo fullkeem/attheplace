@@ -36,7 +36,7 @@ export default function DetailHeader({
                 closeModal();
                 router.push('/login');
               }}
-              className="w-full rounded bg-[#FF6347] px-4 py-2 text-white"
+              className="w-full rounded bg-confirmColor px-4 py-2 text-white"
             >
               확인
             </button>

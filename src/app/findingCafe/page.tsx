@@ -91,7 +91,7 @@ export default function FindingCafe() {
                   setAnswers({});
                   setCurrentStep(1);
                 }}
-                className="mt-4 w-full rounded bg-[#FF6347] px-4 py-2 text-white"
+                className="bg-confirmColor mt-4 w-full rounded px-4 py-2 text-white"
               >
                 확인
               </button>

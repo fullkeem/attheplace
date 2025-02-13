@@ -57,7 +57,7 @@ export default function Signup() {
               closeModal();
               router.push('/login'); // 로그인 페이지로 이동
             }}
-            className="w-full rounded bg-[#FF6347] px-4 py-2 text-white"
+            className="bg-confirmColor w-full rounded px-4 py-2 text-white"
           >
             확인
           </button>
@@ -139,7 +139,7 @@ export default function Signup() {
 
         <button
           type="submit"
-          className="mt-10 w-full rounded-lg bg-[#FF6347] py-3 text-white"
+          className="bg-confirmColor mt-10 w-full rounded-lg py-3 text-white"
         >
           가입하기
         </button>

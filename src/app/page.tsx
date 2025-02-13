@@ -40,7 +40,7 @@ export default function Home() {
             <h3 className="font-serif font-semibold">Being at the Place</h3>
             <Link
               href="/findingCafe"
-              className="mx-auto rounded-sm bg-[#FF6347] px-6 py-3"
+              className="bg-confirmColor mx-auto rounded-sm px-6 py-3"
             >
               찾으러 가기
             </Link>
