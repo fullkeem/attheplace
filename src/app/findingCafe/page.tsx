@@ -91,7 +91,7 @@ export default function FindingCafe() {
                   setAnswers({});
                   setCurrentStep(1);
                 }}
-                className="bg-confirmColor mt-4 w-full rounded px-4 py-2 text-white"
+                className="bg-buttonColor mt-4 w-full rounded px-4 py-2 text-white"
               >
                 확인
               </button>
@@ -126,7 +126,7 @@ export default function FindingCafe() {
             currentStep === question.id && (
               <div
                 key={question.id}
-                className="mt-6 flex h-96 flex-col items-center justify-between rounded-xl bg-[#353434]/70 p-10"
+                className="bg-bgColor/70 mt-6 flex h-96 flex-col items-center justify-between rounded-xl p-10"
               >
                 <h2 className="text-center text-xl font-extrabold">
                   {question.question}

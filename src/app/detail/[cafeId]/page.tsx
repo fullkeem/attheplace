@@ -11,6 +11,7 @@ import { useUserInfoStore } from '@/app/store/authStore';
 
 import LoadingOverlay from '@/app/_components/LoadingOverlay';
 import DetailHeader from '@/app/_components/DetailHeader';
+import CafeInfoItem from '@/app/_components/CafeInfoItem';
 
 export default function Detail() {
   const params = useParams(); // useParams를 사용하여 URL 파라미터를 가져옴
@@ -65,8 +66,8 @@ export default function Detail() {
           userInfo={userInfo}
           isLiked={isLiked}
         />
-        <div className="flex w-full flex-col justify-around desktop:mt-10 desktop:h-5/6 desktop:flex-row desktop:items-center">
-          <picture className="mt-14 flex justify-center">
+        <div className="mx-auto flex w-3/4 flex-col items-center justify-around desktop:mt-10 desktop:h-5/6 desktop:items-center">
+          <picture className="mt-14 flex w-full justify-between">
             <Image
               src={cafeInfo.image_main}
               width={200}
@@ -76,27 +77,27 @@ export default function Detail() {
               priority
               style={{ width: 'auto', height: 'auto' }}
             />
+            <Image
+              src={cafeInfo.image_menu}
+              alt="메뉴판"
+              width={200}
+              height={200}
+              className="rounded-lg"
+              priority
+              style={{ width: 'auto', height: 'auto' }}
+            />
           </picture>
 
-          <section className="mx-2 mt-5 rounded-lg bg-[#353434]/70 p-4">
+          <section className="mx-2 mt-5 w-full rounded-lg bg-bgColor/70 p-4 desktop:w-2/3">
             <h2 className="text-lg font-extrabold">카페 정보</h2>
             <div className="h-1pxr w-full bg-white" />
             <ul className="mt-2 flex flex-col gap-1">
-              <li className="cafeInfo" role="contentInfo">
-                <h3 className="cafeInfoKey">영업 시간 </h3>
-                <p className="cafeInfoValue">{cafeInfo.opening_hours}</p>
-              </li>
-
-              <li className="cafeInfo" role="contentInfo">
-                <h3 className="cafeInfoKey">카페 위치 </h3>
-                <p className="cafeInfoValue">{cafeInfo.location}</p>
-              </li>
-
-              <li className="cafeInfo" role="contentInfo">
-                <h3 className="cafeInfoKey">연락처 </h3>
-                <p className="cafeInfoValue">{cafeInfo.contact_number}</p>
-              </li>
-
+              <CafeInfoItem
+                label={'영업 시간'}
+                value={cafeInfo.opening_hours}
+              />
+              <CafeInfoItem label={'카페 위치'} value={cafeInfo.location} />
+              <CafeInfoItem label={'연락처'} value={cafeInfo.contact_number} />
               <li className="cafeInfo" role="contentInfo">
                 <h3 className="cafeInfoKey">
                   <Image
@@ -121,26 +122,13 @@ export default function Detail() {
                   'X'
                 )}
               </li>
-              <li className="cafeInfo" role="contentInfo">
-                <h3 className="cafeInfoKey">연락처 </h3>
-                <p className="cafeInfoValue">
-                  <StaticMap
-                    latitude={cafeInfo.latitude}
-                    longitude={cafeInfo.longitude}
-                  />
-                </p>
-              </li>
             </ul>
 
             <div className="flexCenter mt-5 gap-4">
-              {/* <Image
-                src={cafeInfo.image_menu}
-                alt="메뉴판"
-                width={140}
-                height={200}
-                priority
-                style={{ width: '300', height: 'aut0' }}
-              /> */}
+              <StaticMap
+                latitude={cafeInfo.latitude}
+                longitude={cafeInfo.longitude}
+              />
             </div>
           </section>
         </div>

@@ -60,7 +60,7 @@ export default function ProfileImageModal({
         <div className="mt-4 flex justify-center gap-4">
           <button
             onClick={handleUploadClick}
-            className="bg-confirmColor rounded px-4 py-2 text-white"
+            className="bg-buttonColor rounded px-4 py-2 text-white"
           >
             예
           </button>

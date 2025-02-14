@@ -34,7 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className="relative mx-auto flex h-dvh min-w-360pxr max-w-[1280px] flex-col">
+      <body className="relative mx-auto flex h-dvh min-w-375pxr max-w-[1280px] flex-col">
         <UseReactQuery>
           <Header />
           <main className="flex min-h-screen flex-col items-center">

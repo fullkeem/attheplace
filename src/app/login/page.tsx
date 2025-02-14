@@ -47,7 +47,7 @@ export default function Login() {
         priority
         aria-hidden="true"
       />
-      <div className="mt-10 flex h-500pxr w-300pxr flex-col rounded-xl bg-[#353434]/75 p-10">
+      <div className="bg-bgColor/75 mt-10 flex h-500pxr w-300pxr flex-col rounded-xl p-10">
         <div className="mb-8 text-center">
           <h2 className="text-lg font-semibold text-white">로그인</h2>
         </div>
@@ -89,7 +89,7 @@ export default function Login() {
           <div className="mb-4 mt-6">
             <button
               type="submit"
-              className="bg-confirmColor w-full rounded-sm py-3 font-semibold text-white"
+              className="bg-buttonColor w-full rounded-sm py-3 font-semibold text-white"
             >
               로그인
             </button>

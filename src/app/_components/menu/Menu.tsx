@@ -8,6 +8,8 @@ import arrow from '/public/icons/menuArrow.svg';
 import { useCafeListStore } from '@/app/store/cafeStore';
 import { useUserInfoStore } from '@/app/store/authStore';
 import { useAllCafeQuery } from '@/app/hooks/useCafeQuery';
+import LogInMenu from './LogInMenu';
+import LogOutMenu from './LogOutMenu';
 
 export default function Menu() {
   const { refetch } = useAllCafeQuery();
@@ -20,7 +22,6 @@ export default function Menu() {
   const profile_image = useUserInfoStore(
     (state) => state.userInfo.profile_image
   );
-  const clearUserInfo = useUserInfoStore((state) => state.clearUserInfo);
 
   const isLoggin = !!nickname;
 
@@ -44,14 +45,6 @@ export default function Menu() {
       document.removeEventListener('mousedown', handleOutsideClick);
     };
   }, [isMenuOpen]);
-
-  // 로그아웃 함수
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    clearUserInfo();
-    toggleMenu();
-    window.location.href = '/';
-  };
 
   // 전체 카페 리스트 데이터 요청
   const handleMapClick = async () => {
@@ -89,75 +82,14 @@ export default function Menu() {
         <ul className="mt-14 flex flex-col gap-5 p-6">
           {isLoggin ? (
             // 로그인 상태일 때
-            <>
-              <li className="my-2 py-1">
-                <div className="flex items-center gap-3">
-                  <div className="flexCenter relative h-14 w-14 rounded-full bg-white p-3">
-                    <Image
-                      src={profile_image}
-                      alt="프로필 이미지"
-                      fill
-                      className="rounded-full"
-                      sizes="(max-width: 768px) 100vw,
-          (max-width: 1200px) 50vw,
-          33vw"
-                    />
-                  </div>
-
-                  <div>
-                    <p>반갑습니다!</p>
-                    <div>
-                      <strong>{nickname}</strong> 님
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-5pxr w-full border border-gray-200" />
-              </li>
-              <li className="py-1">
-                <Link
-                  href={'/mypage'}
-                  className="flexBetween"
-                  onClick={toggleMenu}
-                >
-                  <div>마이페이지</div>
-                  <Image src={arrow} alt="" aria-hidden />
-                </Link>
-              </li>
-              <li className="py-1">
-                <button
-                  type="button"
-                  onClick={handleLogout}
-                  className="flexBetween"
-                >
-                  <div>로그아웃</div>
-                  <Image src={arrow} alt="" aria-hidden />
-                </button>
-              </li>
-            </>
+            <LogInMenu
+              profile_image={profile_image}
+              nickname={nickname}
+              toggleMenu={toggleMenu}
+            />
           ) : (
             // 비로그인 상태일 때
-            <>
-              <li className="py-1">
-                <Link
-                  href="/login"
-                  onClick={toggleMenu}
-                  className="flexBetween"
-                >
-                  <div>로그인</div>
-                  <Image src={arrow} alt="" aria-hidden />
-                </Link>
-              </li>
-              <li className="py-1">
-                <Link
-                  href="/signup"
-                  onClick={toggleMenu}
-                  className="flexBetween"
-                >
-                  <div>회원가입</div>
-                  <Image src={arrow} alt="" aria-hidden />
-                </Link>
-              </li>
-            </>
+            <LogOutMenu toggleMenu={toggleMenu} />
           )}
 
           <li className="py-1">

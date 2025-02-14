@@ -67,7 +67,7 @@ export default function Map() {
       <div id="map" className="h-full w-full"></div>
       <button
         onClick={handleCurrentLocationClick}
-        className="absolute left-5 top-5 rounded border-gray-300 bg-gray-300 p-2"
+        className="absolute left-2 top-16 z-10 rounded border-gray-300 bg-gray-300 p-2"
       >
         <Image
           src={'/icons/myLocation.svg'}

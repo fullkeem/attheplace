@@ -50,7 +50,7 @@ export const useMap = ({ mapRef, cafes, onMarkerClick }: UseMapProps) => {
     } else {
       const mapScript = document.createElement('script');
       mapScript.onload = () => initMap();
-      mapScript.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NAVER_ID_KEY}`;
+      mapScript.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NAVER_ID_KEY}&submodules=clustering`;
       document.head.appendChild(mapScript);
     }
   }, [cafes, mapRef, onMarkerClick]);

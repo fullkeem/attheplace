@@ -36,7 +36,7 @@ export default function DetailHeader({
                 closeModal();
                 router.push('/login');
               }}
-              className="w-full rounded bg-confirmColor px-4 py-2 text-white"
+              className="w-full rounded bg-buttonColor px-4 py-2 text-white"
             >
               확인
             </button>
@@ -53,7 +53,7 @@ export default function DetailHeader({
   };
 
   return (
-    <div className="flexBetween fixed top-0 z-10 mt-0 bg-[#353434]/70 px-5 py-2">
+    <div className="flexBetween fixed top-0 z-10 mt-0 w-full max-w-[1280px] bg-bgColor/70 px-5 py-2">
       <button type="button" onClick={() => router.back()}>
         <Image
           src={'/icons/backArrow.svg'}

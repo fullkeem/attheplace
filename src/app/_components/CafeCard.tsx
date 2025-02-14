@@ -34,6 +34,9 @@ const CafeCard = forwardRef<HTMLLIElement, CafeCardProps>(({ cafe }, ref) => {
             alt={`${cafe.cafe_name} 이미지`}
             fill
             className="block rounded-md object-cover"
+            sizes="(max-width: 768px) 100vw,
+          (max-width: 1200px) 50vw,
+          33vw"
           />
         </div>
       </Link>

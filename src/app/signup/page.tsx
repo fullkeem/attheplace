@@ -57,7 +57,7 @@ export default function Signup() {
               closeModal();
               router.push('/login'); // 로그인 페이지로 이동
             }}
-            className="bg-confirmColor w-full rounded px-4 py-2 text-white"
+            className="bg-buttonColor w-full rounded px-4 py-2 text-white"
           >
             확인
           </button>
@@ -122,7 +122,7 @@ export default function Signup() {
         aria-hidden="true"
       />
       <form
-        className="mt-10 h-550pxr w-300pxr rounded-xl bg-[#353434]/70 p-10"
+        className="bg-bgColor/70 mt-10 h-550pxr w-300pxr rounded-xl p-10"
         onSubmit={handleSubmit}
       >
         <fieldset className="flex flex-col gap-6 border-none">
@@ -139,7 +139,7 @@ export default function Signup() {
 
         <button
           type="submit"
-          className="bg-confirmColor mt-10 w-full rounded-lg py-3 text-white"
+          className="bg-buttonColor mt-10 w-full rounded-lg py-3 text-white"
         >
           가입하기
         </button>
