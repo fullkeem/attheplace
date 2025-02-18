@@ -91,7 +91,7 @@ export default function FindingCafe() {
                   setAnswers({});
                   setCurrentStep(1);
                 }}
-                className="bg-buttonColor mt-4 w-full rounded px-4 py-2 text-white"
+                className="mt-4 w-full rounded bg-buttonColor px-4 py-2 text-white"
               >
                 확인
               </button>
@@ -116,7 +116,7 @@ export default function FindingCafe() {
         priority
         aria-hidden="true"
       />
-      <div className="mt-5 flex w-300pxr flex-col">
+      <div className="mt-10 flex w-300pxr flex-col">
         <ProgressBar
           currentStep={currentStep}
           handleStepClick={handleStepClick}
@@ -126,7 +126,7 @@ export default function FindingCafe() {
             currentStep === question.id && (
               <div
                 key={question.id}
-                className="bg-bgColor/70 mt-6 flex h-96 flex-col items-center justify-between rounded-xl p-10"
+                className="mt-6 flex h-96 flex-col items-center justify-between rounded-xl bg-bgColor/70 p-10"
               >
                 <h2 className="text-center text-xl font-extrabold">
                   {question.question}

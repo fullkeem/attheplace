@@ -12,9 +12,11 @@ export default function Header() {
     return null;
   }
   return (
-    <header className="flexCenter fixed z-10 w-full max-w-[1280px] bg-[url('/images/blackBg.webp')] bg-cover bg-center bg-no-repeat py-5">
+    <header className="fixed z-10 flex w-full max-w-[1280px] justify-center bg-[url('/images/blackBg.webp')] bg-cover bg-center bg-no-repeat py-5 desktop:justify-between desktop:py-0">
       <h1 className="self-center font-serif text-xl leading-5 text-slate-200 underline underline-offset-2">
-        <Link href="/">AT THE PLACE</Link>
+        <Link href="/" className="px-6 py-4">
+          AT THE PLACE
+        </Link>
       </h1>
       <Menu />
     </header>

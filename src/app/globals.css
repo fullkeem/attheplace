@@ -83,7 +83,7 @@ body {
 }
 
 .cafeInfo {
-  @apply mx-0 my-1 flex w-full justify-between;
+  @apply mx-0 my-1 flex w-full justify-around;
 }
 
 .cafeInfoKey {

@@ -53,7 +53,7 @@ export default function Mypage() {
         <div className="mt-10">
           <h3 className="mb-1">찜 목록</h3>
           <div className="w-full border" />
-          <ul>
+          <ul className="items-center gap-3 tablet:grid tablet:grid-cols-2 desktop:grid desktop:grid-cols-3">
             {validLikeList.length > 0 ? (
               validLikeList.map((cafe: UserLikeList) => (
                 <CafeInfo cafe={cafe} key={cafe.cafe_id} />

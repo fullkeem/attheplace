@@ -1,5 +1,3 @@
-'use client';
-
 import classNames from 'classnames';
 
 interface ProgressBarProps {
@@ -24,7 +22,10 @@ export default function ProgressBar({
         {progressEl.map((el, index) => (
           <li
             key={el.id}
-            className="relative flex flex-col items-center gap-1"
+            className={classNames('relative flex flex-col items-center gap-1', {
+              'hover:cursor-pointer': currentStep >= el.id,
+              '': currentStep < el.id,
+            })}
             onClick={() => handleStepClick(el.id)}
           >
             <div
@@ -41,7 +42,7 @@ export default function ProgressBar({
             {index < progressEl.length - 1 && (
               <div
                 className={classNames(
-                  'left-30pxr top-11pxr absolute h-3 w-20 transition-all duration-500',
+                  'absolute left-30pxr top-11pxr h-3 w-20 transition-all duration-500',
                   {
                     'bg-orange-500': currentStep > el.id,
                     'bg-slate-400': currentStep <= el.id,
@@ -51,7 +52,7 @@ export default function ProgressBar({
             )}
             <div
               className={classNames('text-sm', {
-                'text-orange-500': currentStep >= el.id,
+                'font-extrabold text-orange-600': currentStep >= el.id,
                 'text-gray-400': currentStep < el.id,
               })}
             >

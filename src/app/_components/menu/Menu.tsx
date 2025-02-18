@@ -1,13 +1,12 @@
 'use client';
 
-import Link from 'next/link';
 import Image from 'next/image';
-import { useState, useRef, useEffect } from 'react';
 import classNames from 'classnames';
-import arrow from '/public/icons/menuArrow.svg';
+import { useState, useRef, useEffect } from 'react';
 import { useCafeListStore } from '@/app/store/cafeStore';
 import { useUserInfoStore } from '@/app/store/authStore';
 import { useAllCafeQuery } from '@/app/hooks/useCafeQuery';
+import MenuItem from './MenuItem';
 import LogInMenu from './LogInMenu';
 import LogOutMenu from './LogOutMenu';
 
@@ -61,7 +60,8 @@ export default function Menu() {
 
   // 메뉴가 열리고 닫히는 설정
   const menuClasses = classNames(
-    "fixed top-0 right-0 w-1/3 h-full z-40 transform transition-transform duration-300 bg-[url('/images/blackBg.webp')] bg-cover bg-center",
+    "fixed top-0 right-0 w-1/2 tablet:w-1/3 h-full z-40 transform transition-transform duration-300 bg-[url('/images/blackBg.webp')] bg-cover bg-center",
+    'desktop:static desktop:flex desktop:items-center desktop:justify-between desktop:w-auto desktop:translate-x-0 desktop:transition-none',
     {
       'translate-x-0': isMenuOpen,
       'translate-x-full': !isMenuOpen,
@@ -70,16 +70,22 @@ export default function Menu() {
 
   return (
     <>
-      <button onClick={toggleMenu} className="absolute right-5 cursor-pointer">
+      <button
+        onClick={toggleMenu}
+        className="absolute right-5 cursor-pointer desktop:hidden"
+      >
         <Image src="/icons/menuIcon.svg" alt="메뉴" width={25} height={25} />
       </button>
 
       {/* 네비게이션 메뉴 */}
       <nav className={menuClasses} ref={menuRef}>
-        <button className="absolute right-6 top-6" onClick={toggleMenu}>
+        <button
+          className="absolute right-6 top-6 desktop:hidden"
+          onClick={toggleMenu}
+        >
           X
         </button>
-        <ul className="mt-14 flex flex-col gap-5 p-6">
+        <ul className="mt-14 flex flex-col gap-5 p-6 desktop:mt-0 desktop:flex-row desktop:gap-8 desktop:px-6 desktop:py-4">
           {isLoggin ? (
             // 로그인 상태일 때
             <LogInMenu
@@ -91,23 +97,12 @@ export default function Menu() {
             // 비로그인 상태일 때
             <LogOutMenu toggleMenu={toggleMenu} />
           )}
-
-          <li className="py-1">
-            <Link
-              href="/findingCafe"
-              onClick={toggleMenu}
-              className="flexBetween"
-            >
-              <div>Test</div>
-              <Image src={arrow} alt="" aria-hidden />
-            </Link>
-          </li>
-          <li className="py-1">
-            <Link href="/map" onClick={handleMapClick} className="flexBetween">
-              <div>Map</div>
-              <Image src={arrow} alt="" aria-hidden />
-            </Link>
-          </li>
+          <MenuItem
+            label="취향 찾기"
+            href="/findingCafe"
+            onClick={toggleMenu}
+          />
+          <MenuItem label="지도" href="/map" onClick={handleMapClick} />
         </ul>
       </nav>
     </>

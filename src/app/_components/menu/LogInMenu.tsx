@@ -1,7 +1,6 @@
 import Image from 'next/image';
-import Link from 'next/link';
-import arrow from '/public/icons/menuArrow.svg';
 import { useUserInfoStore } from '@/app/store/authStore';
+import MenuItem from './MenuItem';
 
 interface LogInMenuProps {
   profile_image: string;
@@ -24,7 +23,7 @@ export default function LogInMenu({
   };
   return (
     <>
-      <li className="my-2 py-1">
+      <li className="my-2 py-1 desktop:hidden">
         <div className="flex items-center gap-3">
           <div className="flexCenter relative h-14 w-14 rounded-full bg-white p-3">
             <Image
@@ -47,18 +46,8 @@ export default function LogInMenu({
         </div>
         <div className="mt-5pxr w-full border border-gray-200" />
       </li>
-      <li className="py-1">
-        <Link href={'/mypage'} className="flexBetween" onClick={toggleMenu}>
-          <div>마이페이지</div>
-          <Image src={arrow} alt="" aria-hidden />
-        </Link>
-      </li>
-      <li className="py-1">
-        <button type="button" onClick={handleLogout} className="flexBetween">
-          <div>로그아웃</div>
-          <Image src={arrow} alt="" aria-hidden />
-        </button>
-      </li>
+      <MenuItem label="마이페이지" href="/mypage" onClick={toggleMenu} />
+      <MenuItem label="로그아웃" onClick={handleLogout} />
     </>
   );
 }

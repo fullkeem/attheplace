@@ -17,9 +17,9 @@ export default function Home() {
         <Image
           src={attheplace}
           alt="attheplace 로고"
-          className="mx-auto mt-5"
+          className="mx-auto mt-5 desktop:mt-10"
         />
-        <ul className="bg-bgColor/70 mt-3 flex flex-col items-center gap-10 rounded-xl p-6">
+        <ul className="mt-3 flex flex-col items-center gap-10 rounded-xl bg-bgColor/70 p-6">
           <li className="flexCenter flex-col gap-1 text-center">
             <h3 className="font-serif font-semibold">All the place you need</h3>
             <p className="text-sm">오직 당신을 위한 맞춤형 카페 찾기 플랫폼</p>
@@ -40,7 +40,7 @@ export default function Home() {
             <h3 className="font-serif font-semibold">Being at the Place</h3>
             <Link
               href="/findingCafe"
-              className="bg-buttonColor mx-auto rounded-sm px-6 py-3"
+              className="mx-auto rounded-sm bg-buttonColor px-6 py-3"
             >
               찾으러 가기
             </Link>

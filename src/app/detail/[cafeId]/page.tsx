@@ -12,6 +12,7 @@ import { useUserInfoStore } from '@/app/store/authStore';
 import LoadingOverlay from '@/app/_components/LoadingOverlay';
 import DetailHeader from '@/app/_components/DetailHeader';
 import CafeInfoItem from '@/app/_components/CafeInfoItem';
+import DetailCarousel from '@/app/_components/DetailCarousel';
 
 export default function Detail() {
   const params = useParams(); // useParams를 사용하여 URL 파라미터를 가져옴
@@ -46,7 +47,7 @@ export default function Detail() {
   if (!cafeInfo) {
     return <LoadingOverlay />;
   }
-
+  const images = [cafeInfo.image_main, cafeInfo.image_menu].filter(Boolean);
   return (
     <div className="relative flex w-full flex-grow justify-center">
       <div className="absolute inset-0 z-[-1] overflow-hidden">
@@ -66,65 +67,51 @@ export default function Detail() {
           userInfo={userInfo}
           isLiked={isLiked}
         />
-        <div className="mx-auto flex w-3/4 flex-col items-center justify-around desktop:mt-10 desktop:h-5/6 desktop:items-center">
-          <picture className="mt-14 flex w-full justify-between">
-            <Image
-              src={cafeInfo.image_main}
-              width={200}
-              height={200}
-              className="rounded-lg"
-              alt="카페 대표사진"
-              priority
-              style={{ width: 'auto', height: 'auto' }}
-            />
-            <Image
-              src={cafeInfo.image_menu}
-              alt="메뉴판"
-              width={200}
-              height={200}
-              className="rounded-lg"
-              priority
-              style={{ width: 'auto', height: 'auto' }}
-            />
-          </picture>
+        <div className="flexCenter mx-auto mb-6 mt-20 flex-col">
+          <DetailCarousel images={images} />
 
-          <section className="mx-2 mt-5 w-full rounded-lg bg-bgColor/70 p-4 desktop:w-2/3">
-            <h2 className="text-lg font-extrabold">카페 정보</h2>
-            <div className="h-1pxr w-full bg-white" />
-            <ul className="mt-2 flex flex-col gap-1">
-              <CafeInfoItem
-                label={'영업 시간'}
-                value={cafeInfo.opening_hours}
-              />
-              <CafeInfoItem label={'카페 위치'} value={cafeInfo.location} />
-              <CafeInfoItem label={'연락처'} value={cafeInfo.contact_number} />
-              <li className="cafeInfo" role="contentInfo">
-                <h3 className="cafeInfoKey">
-                  <Image
-                    src={'/icons/instagramSimple.svg'}
-                    width={30}
-                    height={30}
-                    alt="인스타그램 주소"
-                  />
-                </h3>
+          <section className="mx-2 mt-5 w-3/4 items-center justify-between gap-4 rounded-lg bg-bgColor/70 p-4 tablet:w-2/3 desktop:flex desktop:w-2/3">
+            <div className="desktop:flex-grow">
+              <h2 className="text-lg font-extrabold">카페 정보</h2>
+              <div className="h-1pxr w-full bg-white" />
+              <ul className="mt-2 flex flex-col gap-1">
+                <CafeInfoItem
+                  label={'영업 시간'}
+                  value={cafeInfo.opening_hours}
+                />
+                <CafeInfoItem label={'카페 위치'} value={cafeInfo.location} />
+                <CafeInfoItem
+                  label={'연락처'}
+                  value={cafeInfo.contact_number}
+                />
+                <li className="cafeInfo" role="contentInfo">
+                  <h3 className="cafeInfoKey">
+                    <Image
+                      src={'/icons/instagramSimple.svg'}
+                      width={30}
+                      height={30}
+                      alt="인스타그램 주소"
+                    />
+                  </h3>
 
-                {cafeInfo.sns_account ? (
-                  <Link
-                    href={cafeInfo.sns_account}
-                    className="cafeInfoValue underline-offset-6pxr underline"
-                    target="_blank"
-                  >
-                    {cafeInfo.sns_account
-                      .replace(/^https?:\/\/(www\.)?instagram\.com\//, '')
-                      .replace(/\/$/, '') || cafeInfo.sns_account}
-                  </Link>
-                ) : (
-                  'X'
-                )}
-              </li>
-            </ul>
+                  {cafeInfo.sns_account ? (
+                    <Link
+                      href={cafeInfo.sns_account}
+                      className="cafeInfoValue underline-offset-6pxr underline"
+                      target="_blank"
+                    >
+                      {cafeInfo.sns_account
+                        .replace(/^https?:\/\/(www\.)?instagram\.com\//, '')
+                        .replace(/\/$/, '') || cafeInfo.sns_account}
+                    </Link>
+                  ) : (
+                    'X'
+                  )}
+                </li>
+              </ul>
+            </div>
 
-            <div className="flexCenter mt-5 gap-4">
+            <div className="mx-auto mt-5 h-full w-2/3 tablet:mt-0 desktop:mt-0 desktop:w-1/3">
               <StaticMap
                 latitude={cafeInfo.latitude}
                 longitude={cafeInfo.longitude}

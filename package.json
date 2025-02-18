@@ -16,6 +16,7 @@
     "next-auth": "^4.24.10",
     "react": "^18",
     "react-dom": "^18",
+    "swiper": "^11.2.4",
     "zustand": "^5.0.0"
   },
   "devDependencies": {
