@@ -46,6 +46,7 @@ export default function DetailCarousel({ images }: DetailCarouselProps) {
               src={img}
               fill
               alt={`카페 이미지 ${idx + 1}`}
+              priority
               className="absolute h-full w-full object-cover"
               sizes="(max-width: 768px) 100vw,
           (max-width: 1200px) 50vw,

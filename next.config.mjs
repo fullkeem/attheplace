@@ -29,8 +29,6 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'naveropenapi.apigw.ntruss.com',
-        port: '',
-        pathname: '/map-static/v2/raster',
       },
       {
         protocol: 'https',
