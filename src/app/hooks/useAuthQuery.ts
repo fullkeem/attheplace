@@ -56,9 +56,7 @@ export const useUserInfoQuery = () => {
       if (!token) {
         return { nickname: '', profile_image: '', likeList: [] };
       }
-
       const response = await fetchUserInfo();
-      console.log(response.userInfo);
       return response.userInfo;
     },
     enabled: !!token,

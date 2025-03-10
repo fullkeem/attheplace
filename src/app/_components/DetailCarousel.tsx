@@ -1,18 +1,16 @@
 'use client';
 
+import Image from 'next/image';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, EffectCoverflow } from 'swiper/modules';
+
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import Image from 'next/image';
 
-interface DetailCarouselProps {
-  images: string[];
-}
-
-export default function DetailCarousel({ images }: DetailCarouselProps) {
+export default function DetailCarousel({ images }: { images: string[] }) {
   if (!images || images.length === 0) return null;
 
   return (

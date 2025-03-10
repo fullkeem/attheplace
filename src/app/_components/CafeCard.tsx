@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -19,6 +19,7 @@ const CafeCard = forwardRef<HTMLLIElement, CafeCardProps>(({ cafe }, ref) => {
       <Link
         href={`/detail/${cafe.id}`}
         className="flex cursor-pointer flex-row gap-2 p-4 transition-shadow"
+        scroll={false}
       >
         <div className="flex max-w-40 flex-grow flex-col gap-3pxr">
           <h3 className="text-md font-bold text-gray-500">{cafe.cafe_name}</h3>
@@ -44,6 +45,5 @@ const CafeCard = forwardRef<HTMLLIElement, CafeCardProps>(({ cafe }, ref) => {
   );
 });
 
-CafeCard.displayName = 'CafeCard'; // forwardRef 사용 시 컴포넌트 이름을 지정해주는 것이 좋습니다.
-
+CafeCard.displayName = 'CafeCard';
 export default CafeCard;
