@@ -59,7 +59,10 @@ export default function SignupFormField({
     <>
       {formFields.map((field) => (
         <div key={field.id} className="flex flex-col">
-          <label htmlFor={field.id} className="text-sm text-white">
+          <label
+            htmlFor={field.id}
+            className="text-sm text-white desktop:text-lg"
+          >
             {field.label}
           </label>
           <input

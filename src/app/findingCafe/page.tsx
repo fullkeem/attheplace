@@ -107,7 +107,7 @@ export default function FindingCafe() {
   const allAnswered = Object.keys(answers).length === questions.length;
 
   return (
-    <div className="bgBox">
+    <div className="relative mt-14 flex h-full w-full justify-center overflow-hidden desktop:pt-20">
       <Image
         src={'/images/background/findingCafe_bg.webp'}
         className="bgImage"
@@ -116,7 +116,7 @@ export default function FindingCafe() {
         priority
         aria-hidden="true"
       />
-      <div className="mt-10 flex w-300pxr flex-col">
+      <div className="mt-10 flex w-300pxr flex-col desktop:w-500pxr desktop:gap-14">
         <ProgressBar
           currentStep={currentStep}
           handleStepClick={handleStepClick}
@@ -126,26 +126,26 @@ export default function FindingCafe() {
             currentStep === question.id && (
               <div
                 key={question.id}
-                className="mt-6 flex h-96 flex-col items-center justify-between rounded-xl bg-bgColor/70 p-10"
+                className="mt-6 flex h-96 flex-col items-center justify-between rounded-xl bg-bgColor/70 p-10 desktop:h-auto desktop:gap-20"
               >
-                <h2 className="text-center text-xl font-extrabold">
+                <h2 className="text-center text-xl font-extrabold desktop:text-3xl">
                   {question.question}
                 </h2>
 
-                <div className="flex w-full flex-col gap-4">
-                  <div className="buttonStyle mt-14">
+                <div className="flex w-full flex-col gap-4 desktop:flex-row">
+                  <div className="buttonStyle mt-14 w-full desktop:mt-0">
                     <button
                       type="button"
-                      className="inline-block h-full w-full"
+                      className="h-full w-full"
                       onClick={() => handleAnswer(question.key, true)}
                     >
                       Yes
                     </button>
                   </div>
-                  <div className="buttonStyle">
+                  <div className="buttonStyle w-full">
                     <button
                       type="button"
-                      className="block h-full w-full"
+                      className="h-full w-full"
                       onClick={() => handleAnswer(question.key, false)}
                     >
                       No

@@ -85,7 +85,7 @@ export default function Menu() {
         >
           X
         </button>
-        <ul className="mt-14 flex flex-col gap-5 p-6 desktop:mt-0 desktop:flex-row desktop:gap-8 desktop:px-6 desktop:py-4">
+        <ul className="mt-14 flex flex-col gap-5 p-6 desktop:mt-0 desktop:flex-row desktop:gap-8 desktop:px-6 desktop:py-4 desktop:text-lg">
           {isLoggin ? (
             // 로그인 상태일 때
             <LogInMenu

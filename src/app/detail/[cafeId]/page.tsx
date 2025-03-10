@@ -49,7 +49,7 @@ export default function Detail() {
   }
   const images = [cafeInfo.image_main, cafeInfo.image_menu].filter(Boolean);
   return (
-    <div className="relative flex w-full flex-grow justify-center">
+    <div className="flexCenter relative w-full flex-grow">
       <div className="absolute inset-0 z-[-1] overflow-hidden">
         <Image
           src={cafeInfo.image_main}

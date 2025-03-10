@@ -1,8 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+
+import { useState } from 'react';
 
 import { useUserInfoStore, UserLikeList } from '../store/authStore';
 import { useUpdateProfileImage } from '../hooks/useProfileImageQuery';
@@ -11,40 +11,12 @@ import CafeInfo from '@/app/_components/CafeInfo';
 import ProfileImageModal from '../_components/ProfileImageModal';
 
 import defaulProfile from '/public/images/defaultProfile.png';
-import { useModalStore } from '../store/modalStore';
-import LoadingOverlay from '../_components/LoadingOverlay';
 
 export default function Mypage() {
-  const router = useRouter();
   const { userInfo } = useUserInfoStore();
-  const { openModal, closeModal } = useModalStore();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { mutate: updateProfileImage } = useUpdateProfileImage();
-
-  useEffect(() => {
-    if (!userInfo?.nickname) {
-      openModal(
-        <div className="p-5">
-          <p className="text-center text-black">
-            마이페이지는 로그인한 사용자만 이용 가능합니다.
-          </p>
-          <button
-            className="mt-4 w-full rounded bg-buttonColor px-4 py-2 text-white"
-            onClick={() => {
-              closeModal();
-              router.push('/login');
-            }}
-          >
-            확인
-          </button>
-        </div>
-      );
-    }
-  }, [userInfo, openModal, closeModal, router]);
-
-  if (!userInfo?.nickname) {
-    return <LoadingOverlay />;
-  }
 
   const validLikeList = userInfo?.likeList.filter(
     (cafe) => cafe.cafe_id !== null && cafe.cafe_image !== null

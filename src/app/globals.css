@@ -63,15 +63,15 @@ body {
 }
 
 .bgBox {
-  @apply relative mt-14 flex h-full w-full justify-center overflow-hidden;
+  @apply relative mt-14 flex h-full w-full items-center justify-center overflow-hidden;
 }
 
 .bgImage {
-  @apply blur-2pxr absolute z-[-1] h-dvh w-full scale-110 object-cover;
+  @apply absolute z-[-1] h-dvh w-full scale-110 object-cover blur-sm;
 }
 
 .inputCommon {
-  @apply w-full border-b border-gray-600 bg-transparent py-2 text-sm focus:border-gray-300 focus:outline-none;
+  @apply w-full border-b border-gray-600 bg-transparent py-2 text-sm focus:border-gray-300 focus:outline-none desktop:text-lg;
 }
 
 .buttonStyle {

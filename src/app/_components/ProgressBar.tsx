@@ -30,7 +30,7 @@ export default function ProgressBar({
           >
             <div
               className={classNames(
-                'flexCenter relative z-[1] h-8 w-8 rounded-full transition-colors duration-300',
+                'flexCenter relative z-10 h-8 w-8 rounded-full transition-colors duration-300 desktop:h-14 desktop:w-14',
                 {
                   'bg-orange-500 text-white': currentStep >= el.id,
                   'bg-slate-400 text-black': currentStep < el.id,
@@ -42,7 +42,7 @@ export default function ProgressBar({
             {index < progressEl.length - 1 && (
               <div
                 className={classNames(
-                  'absolute left-30pxr top-11pxr h-3 w-20 transition-all duration-500',
+                  'absolute left-30pxr top-11pxr h-3 w-70pxr transition-all duration-500 desktop:top-14pxr desktop:h-7 desktop:w-130pxr',
                   {
                     'bg-orange-500': currentStep > el.id,
                     'bg-slate-400': currentStep <= el.id,
@@ -51,7 +51,7 @@ export default function ProgressBar({
               ></div>
             )}
             <div
-              className={classNames('text-sm', {
+              className={classNames('text-sm desktop:text-lg', {
                 'font-extrabold text-orange-600': currentStep >= el.id,
                 'text-gray-400': currentStep < el.id,
               })}

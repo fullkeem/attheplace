@@ -63,7 +63,9 @@ export default function DetailHeader({
         />
       </button>
 
-      <h1 className="text-lg font-bold">{cafeInfo.cafe_name}</h1>
+      <h1 className="text-lg font-bold desktop:text-2xl">
+        {cafeInfo.cafe_name}
+      </h1>
 
       <button type="button" onClick={handleLikeToggle}>
         <Image
