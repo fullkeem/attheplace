@@ -78,7 +78,7 @@
 ### 로그인/회원가입
 
 | 로그인 | 회원가입 |
-|:---|:---|
+|:---:|:---:|
 | ![로그인](https://github.com/user-attachments/assets/6d309f49-725b-41a0-ae10-8b933873c1d4) | ![회원가입](https://github.com/user-attachments/assets/5bf5cd51-f0ca-4b1f-b94d-c8e27377be91) |
 
 #### 로그인
@@ -91,7 +91,7 @@
 ### 마이페이지/ 카페 상세
 
 | 마이페이지 | 카페 상세 |
-|:---|:---|
+|:---:|:---:|
 | ![마이페이지](https://github.com/user-attachments/assets/0f10d893-8354-4786-a2fe-32a78433f719) | ![카페 상세](https://github.com/user-attachments/assets/055a88a8-a11a-43c4-83d7-bc5aa4f48eb8) |
 
 #### 마이페이지
@@ -107,7 +107,7 @@
 ### 취향 찾기 / 지도
 
 | 취향 찾기 | 지도 |
-|:---|:---|
+|:---:|:---:|
 | ![취향 찾기](https://github.com/user-attachments/assets/12c454b6-562e-44a0-ab51-4f01fdf1dca6)| ![지도](https://github.com/user-attachments/assets/d96dd35a-b6a5-4c13-bc03-77129196147b) |
 
 #### 취향 찾기
